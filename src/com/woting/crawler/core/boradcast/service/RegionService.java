@@ -23,7 +23,7 @@ public class RegionService {
     }
 	
 	public List<RegionPo> getChannelList(String publisher){
-		List<RegionPo> reglist = regDao.queryForList("getList", publisher);
+		List<RegionPo> reglist = regDao.queryForList("getRegListByPublisher", publisher);
 		return reglist;
 	}
 	

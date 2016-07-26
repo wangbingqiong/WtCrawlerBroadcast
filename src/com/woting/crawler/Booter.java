@@ -7,6 +7,7 @@ import com.spiritdata.framework.core.cache.CacheEle;
 import com.spiritdata.framework.core.cache.SystemCache;
 import com.woting.crawler.ext.SpringShell;
 import com.woting.crawler.scheme.etl.compareBcInfo;
+import com.woting.crawler.scheme.qtcrawler.QTCatagoryCrawler;
 import com.woting.crawler.scheme.qtcrawler.QTCrawler;
 
 import ch.qos.logback.classic.LoggerContext;

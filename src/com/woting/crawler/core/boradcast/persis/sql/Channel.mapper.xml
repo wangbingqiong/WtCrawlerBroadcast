@@ -44,11 +44,6 @@
     </where>
   </sql>
   
-  <!-- 获得列表 -->
-  <select id="getList" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select <include refid="Base_Column_List"/> from qt_Channel where publisher=#{publisher,jdbcType=VARCHAR}
-  </select>
-  
   <!-- 新增数据 -->
   <insert id="insert" parameterType="java.util.Map">
     insert into qt_Channel
@@ -87,7 +82,7 @@
   <insert id="insertList" parameterType="java.util.List">
     insert into qt_Channel(id,chId,chLiveId,chTitle,publisher,regionId,regionName,catagoryId,catagoryName,chImg,chURL,flowURI,descn,cTime) values
     <foreach collection="list" item="list" index="index" separator=",">
-     (#{list.id},#{list.chId},#{list.chLiveId},#{list.chTitle},#{list.publisher},#{list.regionId},#{list.regionName},#{list.catagoryId},#{list.catagoryName},#{list.chImg},#{list.chURI},#{list.flowURI},#{list.descn},#{list.cTime})
+     (#{list.id},#{list.chId},#{list.chLiveId},#{list.chTitle},#{list.publisher},#{list.regionId},#{list.regionName},#{list.catagoryId},#{list.catagoryName},#{list.chImg},#{list.chURL},#{list.flowURI},#{list.descn},#{list.cTime})
     </foreach>
   </insert>
   

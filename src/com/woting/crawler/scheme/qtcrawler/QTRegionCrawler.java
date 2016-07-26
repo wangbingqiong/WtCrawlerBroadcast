@@ -2,7 +2,9 @@ package com.woting.crawler.scheme.qtcrawler;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,9 +16,10 @@ import com.woting.crawler.core.boradcast.persis.po.RegionPo;
 
 public class QTRegionCrawler {
 	
-	public List<RegionPo> getQTRegion(String url){
+	public Map<String, Object> getQTRegion(String url){
 		Document doc = null;
 		List<RegionPo> reglist = new ArrayList<RegionPo>();
+		Map<String, Object> m = new HashMap<String,Object>();
 		try {
 			doc = Jsoup.connect(url).ignoreContentType(true).get();
 			if(doc!=null) {
@@ -36,6 +39,7 @@ public class QTRegionCrawler {
 							reg.setPublisher("蜻蜓FM");
 							reg.setcTime(new Timestamp(System.currentTimeMillis()));
 							reglist.add(reg);
+							m.put(hrefid, title);
 						}
 					}
 				}
@@ -43,6 +47,7 @@ public class QTRegionCrawler {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return reglist;
+		m.put("regionlist", reglist);
+		return m;
 	}
 }

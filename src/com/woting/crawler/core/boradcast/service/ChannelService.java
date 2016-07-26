@@ -19,11 +19,11 @@ public class ChannelService {
     }
 	
 	public void insertChannelList(List<ChannelPo> chlist){
-		chDao.insert("insertlist", chlist);
+		chDao.insert("insertList", chlist);
 	}
 	
 	public List<ChannelPo> getChannelList(String publisher){
-		List<ChannelPo> chlist = chDao.queryForList("getList", publisher);
+		List<ChannelPo> chlist = chDao.queryForList("getChListByPublisher", publisher);
 		return chlist;
 	}
 	

@@ -12,17 +12,17 @@ import com.woting.crawler.core.boradcast.service.RegionService;
 import com.woting.crawler.ext.SpringShell;
 import com.woting.crawler.utils.WriteTXT;
 
-public abstract class QTUpdate {
+public class QTUpdate {
 
 	private ChannelService chService;
 	private ProgrammeService proService;
 	private RegionService  regService;
 	
-	public void updatQTInfo(List<RegionPo> regionlist, List<ChannelPo> chlist, List<ProgrammePo> fslist) {
+	public void updatQTInfo(List<RegionPo> regionlist, List<ChannelPo> chlist, List<ProgrammePo> prolist) {
 		chService = (ChannelService) SpringShell.getBean("channelService");
 		proService = (ProgrammeService) SpringShell.getBean("programmeService");
 		regService = (RegionService) SpringShell.getBean("regionService");
-		String fsstr = JsonUtils.objToJson(fslist);
+		String fsstr = JsonUtils.objToJson(prolist);
 		String chstr = JsonUtils.objToJson(chlist);
 		WriteTXT.writeTXTByJsonstr(fsstr, "E:\\蜻蜓电台抓取\\蜻蜓节目抓取信息_"+System.currentTimeMillis()+".txt");
 		WriteTXT.writeTXTByJsonstr(chstr, "E:\\蜻蜓电台抓取\\蜻蜓电台抓取信息_"+System.currentTimeMillis()+".txt");
@@ -32,7 +32,7 @@ public abstract class QTUpdate {
 			chService.deleteChannel("蜻蜓FM");
 			chService.insertChannelList(chlist);
 			proService.deleteProgramme("蜻蜓FM");
-			proService.insertProgrammeList(fslist);
+			proService.insertProgrammeList(prolist);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

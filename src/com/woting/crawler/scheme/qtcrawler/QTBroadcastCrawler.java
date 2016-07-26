@@ -1,5 +1,6 @@
 package com.woting.crawler.scheme.qtcrawler;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.spiritdata.framework.util.JsonUtils;
+import com.spiritdata.framework.util.SequenceUUID;
 import com.woting.crawler.core.boradcast.persis.po.ChannelPo;
 
 
@@ -34,6 +36,7 @@ public class QTBroadcastCrawler {
 					chid = chid.replace("[", "").replace("]", "");
 					String chimg = m.get("thumb")+"";
 					String regionid = url.replace("http://www.qingting.fm/s/categories/", "");
+					ch.setId(SequenceUUID.getUUIDSubSegment(4));
 					ch.setChTitle(title);
 					ch.setChId(chid);
 					ch.setChLiveId(chLiveId);
@@ -43,12 +46,12 @@ public class QTBroadcastCrawler {
 					ch.setFlowURI("http://hls.qingting.fm/live/"+chid+".m3u8");
 					ch.setDescn(m.get("desc")+"");
 					ch.setPublisher("蜻蜓FM");
+					ch.setcTime(new Timestamp(System.currentTimeMillis()));
 					chlist.add(ch);
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			
 		}
 		return chlist;
 	}

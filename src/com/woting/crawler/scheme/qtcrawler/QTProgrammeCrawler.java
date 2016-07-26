@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import com.spiritdata.framework.util.JsonUtils;
+import com.spiritdata.framework.util.SequenceUUID;
 import com.woting.crawler.core.boradcast.persis.po.ProgrammePo;
 
 public class QTProgrammeCrawler {
@@ -21,7 +23,8 @@ public class QTProgrammeCrawler {
 			String url = "http://i.qingting.fm/qtapi/channellives/"+chLiveId+"/programs/day/1/2/3/4/5/6/7?_="+System.currentTimeMillis();
 			System.out.println(url);
 			doc = Jsoup.connect(url).ignoreContentType(true).timeout(10000).get();
-			String flist = doc.getElementsByTag("body").html().replace("&quot;", "\"");
+			String flist = doc.getElementsByTag("body").html();
+			flist = StringEscapeUtils.unescapeHtml4(flist);
 			Map<String, Object> m = (Map<String, Object>) JsonUtils.jsonToObj(flist, Map.class);
 			if(m.containsKey("data")) {
 				Map<String, Object> ms = (Map<String, Object>) m.get("data");
@@ -32,6 +35,7 @@ public class QTProgrammeCrawler {
 							ProgrammePo fs = new ProgrammePo();
 							Map<String, Object> mainfo =  (Map<String, Object>) map.get("mediainfo");
 							String chid = mainfo.get("id")+"";
+							fs.setId(SequenceUUID.getUUIDSubSegment(4));
 							fs.setChId(chid);
 							fs.setChLiveId(chLiveId);
 							fs.setTitle(map.get("title")+"");
@@ -41,6 +45,7 @@ public class QTProgrammeCrawler {
 							fs.setWeekDay(i);
 							fs.setcTime(new Timestamp(System.currentTimeMillis()));
 							fs.setPublisher("蜻蜓FM");
+							fs.setcTime(new Timestamp(System.currentTimeMillis()));
 							fslist.add(fs);
 						}
 					}

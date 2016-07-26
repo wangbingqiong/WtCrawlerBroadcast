@@ -68,12 +68,4 @@ public class compareBcInfo {
 		List<BCProgrammePo> bcplist = DataTransform.getBcpByBclfAndFes(bclfmap, prolist);
 		bcProService.insertBCProgrammeList(bcplist);
 	}
-	
-	
-	public static void main(String[] args) {
-		new QTCrawler().beginQTCrawler();
-		System.out.println("抓取完成");
-		System.out.println("开始数据整理");
-		new compareBcInfo().compareCrawlerBcAndSqlBc();
-	}
 }

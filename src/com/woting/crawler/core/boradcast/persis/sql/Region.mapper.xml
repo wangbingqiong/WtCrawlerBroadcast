@@ -27,6 +27,7 @@
       </trim>
     </where>
   </sql>
+  
   <insert id="insertlist" parameterType="java.util.List">
     insert into qt_region(id,srcId,publisher,regionName,regionURL,cTime) values
     <foreach collection="list" item="list" index="index" separator=",">

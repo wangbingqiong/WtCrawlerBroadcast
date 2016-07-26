@@ -21,8 +21,8 @@ public class CatagoryService {
         catagoryDao.setNamespace("A_CATAGORY");
     }
 	
-	public List<CatagoryPo> getCatagoryList() {
-		List<CatagoryPo> catagorylist = catagoryDao.queryForList("getList");
+	public List<CatagoryPo> getCatagoryList(String publisher) {
+		List<CatagoryPo> catagorylist = catagoryDao.queryForList("getCatagoryListByPublisher", publisher);
 		return catagorylist;
 	}
 }

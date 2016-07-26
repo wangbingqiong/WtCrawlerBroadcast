@@ -1,5 +1,6 @@
 package com.woting.crawler.core.boradcast.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -21,12 +22,23 @@ public class ProgrammeService {
     }
 	
 	public List<ProgrammePo> getProgrammeList(String publisher) {
-		List<ProgrammePo> prolist = pgDao.queryForList("", publisher);
+		List<ProgrammePo> prolist = pgDao.queryForList("getProListByPublisher", publisher);
 		return prolist;
 	}
 	
 	public void insertProgrammeList(List<ProgrammePo> pglist){
-		pgDao.insert("insertlist", pglist);
+		int num=0;
+		List<ProgrammePo> pplist = new ArrayList<ProgrammePo>();
+		for (int i = 0; i < pglist.size(); i++) {
+			pplist.add(pglist.get(i));
+			num++;
+			if(num==1000) {
+				pgDao.insert("insertlist", pplist);
+				pplist.clear();
+				num=0;
+			}
+		}
+		pgDao.insert("insertlist", pplist);
 	}
 	
 	public void deleteProgramme(String publisher) {

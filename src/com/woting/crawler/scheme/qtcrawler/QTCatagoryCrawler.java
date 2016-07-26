@@ -21,7 +21,6 @@ public class QTCatagoryCrawler {
 		List<CatagoryPo> catalist = cataService.getCatagoryList(publisher);
 		Map<String, Object> chmap = new HashMap<String,Object>();
 		Map<String, Object> catamap = new HashMap<String,Object>();
-		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		Document doc ;
 		try {
 			for (CatagoryPo catagoryPo : catalist) {

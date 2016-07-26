@@ -3,9 +3,7 @@ package com.woting.crawler.scheme.ygwcrawler;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.spiritdata.framework.util.JsonUtils;
 import com.woting.crawler.core.boradcast.persis.po.ChannelPo;
-import com.woting.crawler.core.boradcast.persis.po.ProgrammePo;
 import com.woting.crawler.core.boradcast.persis.po.RegionPo;
 
 public class YGWCrawler {
@@ -23,7 +21,6 @@ public class YGWCrawler {
 				chlist.addAll(chs);
 			}
 			new YGWUpdate().updatYGWInfo(regionlist, chlist);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

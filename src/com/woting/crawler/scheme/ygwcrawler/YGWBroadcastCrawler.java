@@ -1,5 +1,6 @@
 package com.woting.crawler.scheme.ygwcrawler;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import com.spiritdata.framework.util.JsonUtils;
+import com.spiritdata.framework.util.SequenceUUID;
 import com.spiritdata.framework.util.StringUtils;
 import com.woting.crawler.core.boradcast.persis.po.ChannelPo;
 
@@ -42,11 +44,13 @@ public class YGWBroadcastCrawler {
 					String flowurl = m3.get("url") + "";
 					ch.setFlowURI(flowurl);
 				}
+				ch.setChId(SequenceUUID.getUUIDSubSegment(4));
 				ch.setChId(chid);
 				ch.setChImg(icon);
 				ch.setChTitle(title);
 				ch.setRegionId(srcId);
 				ch.setPublisher("央广网FM");
+				ch.setcTime(new Timestamp(System.currentTimeMillis()));
 				chlist.add(ch);
 			}
 		} catch (Exception e) {

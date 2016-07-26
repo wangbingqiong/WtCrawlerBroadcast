@@ -1,0 +1,76 @@
+/**001 QT电台地区信息[QT_REGION]*/
+DROP TABLE IF EXISTS qt_Region;
+CREATE TABLE qt_Region (
+  id         varchar(32)      NOT NULL             COMMENT 'ID(UUID)',
+  srcId      varchar(32)      NOT NULL             COMMENT '平台的地区Id',
+  publisher  varchar(32)      NOT NULL             COMMENT '来源',
+  regionName varchar(32)      NOT NULL             COMMENT '平台的地区名称',
+  regionURL  varchar(200)     NOT NULL             COMMENT '平台的地区URL',
+  cTime      timestamp        NOT NULL  DEFAULT CURRENT_TIMESTAMP  COMMENT '创建时间',
+  PRIMARY KEY (id)
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='001电台地区信息';
+
+/**002 QT电台信息[QT_CHANNEL]*/
+DROP TABLE IF EXISTS qt_Channel;
+CREATE TABLE qt_Channel (
+  id             varchar(32)      NOT NULL             COMMENT 'ID(UUID)',
+  chId           varchar(32)      NOT NULL             COMMENT '平台里电台播放资源对应Id',
+  chLiveId       varchar(32)                           COMMENT '平台里电台节目资源对应Id',
+  chTitle        varchar(100)     NOT NULL             COMMENT '电台名称',
+  publisher      varchar(32)      NOT NULL             COMMENT '来源',
+  regionId       varchar(32)                           COMMENT '电台行政区划Id',
+  regionName     varchar(20)                           COMMENT '电台行政区划名称',
+  catagoryId     varchar(32)                           COMMENT '电台内容分类Id',
+  catagoryName   varchar(10)                           COMMENT '电台内容分类名称',
+  chImg          varchar(200)                          COMMENT '电台图标',
+  chURL          varchar(200)                          COMMENT '电台网址',
+  flowURI        varchar(200)     NOT NULL             COMMENT '直播流URL',
+  descn          varchar(500)                          COMMENT '电台描述',
+  cTime          timestamp        NOT NULL  DEFAULT CURRENT_TIMESTAMP  COMMENT '创建时间',
+  PRIMARY KEY (id)
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='002电台信息';
+
+/**003 QT电台节目信息[QT_CHPROGRAMME]*/
+DROP TABLE IF EXISTS qt_CHPROGRAMMEl;
+CREATE TABLE qt_CHProgramme (
+  id         varchar(32)      NOT NULL             COMMENT 'id',
+  chId       varchar(32)      NOT NULL             COMMENT '平台里电台播放资源对应Id',
+  chLiveId   varchar(32)                           COMMENT '平台里电台节目资源对应Id',
+  title      varchar(100)     NOT NULL             COMMENT '节目名称',
+  publisher  varchar(32)      NOT NULL             COMMENT '来源',
+  weekDay    int(1) unsigned  NOT NULL             COMMENT '星期的第几天',
+  begintime  varchar(10)      NOT NULL             COMMENT '节目开始直播时间',
+  endtime    varchar(10)      NOT NULL             COMMENT '节目结束直播时间',
+  duration   varchar(10)                           COMMENT '节目播放时长',
+  cTime      timestamp        NOT NULL  DEFAULT CURRENT_TIMESTAMP  COMMENT '创建时间',
+  PRIMARY KEY (id)
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='003电台节目信息';
+
+/**004 QT电台抓取地址[QT_CHURIPATH]*/
+DROP TABLE IF EXISTS qt_CHUriPath;
+CREATE TABLE qt_CHUriPath (
+  id         varchar(32)      NOT NULL             COMMENT 'ID(UUID)',
+  uriType    varchar(32)      NOT NULL             COMMENT '抓取uri链接类型',
+  uriPart1   varchar(100)     NOT NULL             COMMENT '链接拼接部位1',
+  uriPart2   varchar(100)     NOT NULL             COMMENT '链接拼接部位2',
+  uriPart3   varchar(100)     NOT NULL             COMMENT '链接拼接部位3',
+  cTime      timestamp        NOT NULL  DEFAULT CURRENT_TIMESTAMP  COMMENT '创建时间',
+  PRIMARY KEY (id)
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='004电台抓取地址';
+
+/**005 QT电台内容分类信息[QT_CHURIPATH]*/
+DROP TABLE IF EXISTS qt_CHCatagory;
+CREATE TABLE qt_CHCatagory (
+  id            varchar(32)      NOT NULL             COMMENT 'ID(UUID)',
+  srcId         varchar(32)      NOT NULL             COMMENT '平台Id',
+  publisher     varchar(32)      NOT NULL             COMMENT '来源',
+  catagoryName  varchar(32)      NOT NULL             COMMENT '平台内容分类名称',
+  catagoryURL   varchar(200)     NOT NULL             COMMENT '平台内容分类链接',
+  cTime         timestamp        NOT NULL  DEFAULT CURRENT_TIMESTAMP  COMMENT '创建时间',
+  PRIMARY KEY (id)
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='005电台内容分类信息';

@@ -15,7 +15,6 @@ import com.woting.crawler.core.boradcast.persis.po.ProgrammePo;
 import com.woting.crawler.core.boradcast.service.ChannelService;
 import com.woting.crawler.core.boradcast.service.ProgrammeService;
 import com.woting.crawler.ext.SpringShell;
-import com.woting.crawler.scheme.qtcrawler.QTCrawler;
 
 public class compareBcInfo {
 	

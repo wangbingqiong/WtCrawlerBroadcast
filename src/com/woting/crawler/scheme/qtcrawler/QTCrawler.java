@@ -42,8 +42,8 @@ public class QTCrawler {
 		Map<String, Object> chmap = (Map<String, Object>) map.get("chmap");
 		Map<String, Object> catamap = (Map<String, Object>) map.get("catamap");
 		for (ChannelPo channelPo : chlist) {
-			channelPo.setRegionId(chmap.get(channelPo.getChLiveId())+"");
-			channelPo.setRegionName(catamap.get(channelPo.getCatagoryId())+"");
+			channelPo.setCatagoryId(chmap.get(channelPo.getChLiveId())+"");
+			channelPo.setCatagoryName(catamap.get(channelPo.getCatagoryId())+"");
 			channelPo.setRegionName(regm.get(channelPo.getRegionId())+"");
 		}
 		System.out.println("##"+JsonUtils.objToJson(chlist));

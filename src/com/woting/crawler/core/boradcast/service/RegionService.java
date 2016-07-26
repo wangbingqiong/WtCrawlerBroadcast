@@ -22,7 +22,7 @@ public class RegionService {
         regDao.setNamespace("A_REGION");
     }
 	
-	public List<RegionPo> getChannelList(String publisher){
+	public List<RegionPo> getRegionList(String publisher){
 		List<RegionPo> reglist = regDao.queryForList("getRegListByPublisher", publisher);
 		return reglist;
 	}
@@ -35,12 +35,12 @@ public class RegionService {
 		regDao.delete("deleteByPublisher", publisher);
 	}
 
-	public Map<String, Object> getRegionMap(String publisher) {
-		Map<String, Object> m = new HashMap<String,Object>();
-		List<RegionPo> reglist = getChannelList(publisher);
-		for (RegionPo regionPo : reglist) {
-			m.put(regionPo.getSrcId(), regionPo.getRegionName());
-		}
-		return m;
-	}
+//	public Map<String, Object> getRegionMap(String publisher) {
+//		Map<String, Object> m = new HashMap<String,Object>();
+//		List<RegionPo> reglist = getRegionList(publisher);
+//		for (RegionPo regionPo : reglist) {
+//			m.put(regionPo.getSrcId(), regionPo.getRegionName());
+//		}
+//		return m;
+//	}
 }

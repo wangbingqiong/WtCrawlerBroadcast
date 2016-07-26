@@ -11,17 +11,13 @@ import com.woting.cm.core.broadcast.persis.po.BCProgrammePo;
 import com.woting.cm.core.broadcast.persis.po.BroadcastPo;
 import com.woting.crawler.core.boradcast.persis.po.ChannelPo;
 import com.woting.crawler.core.boradcast.persis.po.ProgrammePo;
-import com.woting.crawler.core.boradcast.service.RegionService;
 
 public abstract class DataTransform {
-
-	private static RegionService regdao = new RegionService();
-
+	
 	public static Map<String, Object> getBcByCh(List<ChannelPo> chlist) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<BroadcastPo> bclist = new ArrayList<BroadcastPo>();
 		List<BCLiveFlowPo> bclflist = new ArrayList<BCLiveFlowPo>();
-		Map<String, Object> m = regdao.getRegionMap("蜻蜓FM");
 		for (ChannelPo ch : chlist) {
 			BroadcastPo bc = new BroadcastPo();
 			BCLiveFlowPo bclf = new BCLiveFlowPo();
@@ -29,7 +25,7 @@ public abstract class DataTransform {
 			bc.setId(bcid);
 			bc.setBcTitle(ch.getChTitle());
 			bc.setBcPubType(2);
-			bc.setBcPublisher(m.get(ch.getRegionId()) + "人民广播电台");
+			bc.setBcPublisher(ch.getRegionName() + "人民广播电台");
 			bc.setBcImg(ch.getChImg());
 			bc.setBcURL(ch.getChURL());
 			bc.setDescn(ch.getDescn());
@@ -49,8 +45,7 @@ public abstract class DataTransform {
 	}
 
 	public static BroadcastPo updateBcByCh(BroadcastPo bc, ChannelPo ch) {
-		Map<String, Object> m = regdao.getRegionMap("蜻蜓FM");
-		bc.setBcPublisher(m.get(ch.getRegionId()) + "人民广播电台");
+		bc.setBcPublisher(ch.getRegionName() + "人民广播电台");
 		bc.setBcImg(ch.getChImg());
 		bc.setBcURL(ch.getChURL());
 		bc.setDescn(ch.getDescn());

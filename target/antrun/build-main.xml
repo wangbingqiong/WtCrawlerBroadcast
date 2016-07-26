@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <echo>copy file</echo>
+  <mkdir dir="D:\WBWorkDir\WtCrawlerBroadcast/target/pub/conf"/>
+  <copy todir="D:\WBWorkDir\WtCrawlerBroadcast/target/pub/conf">
+    <fileset dir="D:\WBWorkDir\WtCrawlerBroadcast/conf"></fileset>
+  </copy>
+  <mkdir dir="D:\WBWorkDir\WtCrawlerBroadcast/target/conf"/>
+  <copy todir="D:\WBWorkDir\WtCrawlerBroadcast/target/conf">
+    <fileset dir="D:\WBWorkDir\WtCrawlerBroadcast/conf"></fileset>
+  </copy>
+  <copy file="D:\WBWorkDir\WtCrawlerBroadcast/target/WtCrawlerBroadcast-0.0.1-SNAPSHOT.jar" tofile="D:\WBWorkDir\WtCrawlerBroadcast/target/pub/WtCrawlerBroadcast.jar" overwrite="true"/>
+  <copy file="D:\WBWorkDir\WtCrawlerBroadcast/startCrawl.sh" tofile="D:\WBWorkDir\WtCrawlerBroadcast/target/pub/startCrawl.sh" overwrite="true"/>
+  <copy file="D:\WBWorkDir\WtCrawlerBroadcast/startCrawl.bat" tofile="D:\WBWorkDir\WtCrawlerBroadcast/target/pub/startCrawl.bat" overwrite="true"/>
+</target>
+</project>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="A_CHANNEL">
+  <!-- 对象定义:元数据列模式 -->
+  <resultMap id="BaseResultMap" type="channel">
+    <id     column="id"           property="id"           jdbcType="VARCHAR"/>
+    <result column="chId"         property="chId"         jdbcType="VARCHAR"/>
+    <result column="chLiveId"     property="chLiveId"     jdbcType="VARCHAR"/>
+    <result column="chTitle"      property="chTitle"      jdbcType="VARCHAR"/>
+    <result column="publisher"    property="publisher"    jdbcType="VARCHAR"/>
+    <result column="regionId"     property="regionId"     jdbcType="VARCHAR"/>
+    <result column="regionName"   property="regionName"   jdbcType="VARCHAR"/>
+    <result column="catagoryId"   property="catagoryId"   jdbcType="VARCHAR"/>
+    <result column="catagoryName" property="catagoryName" jdbcType="VARCHAR"/>
+    <result column="chImg"        property="chImg"        jdbcType="VARCHAR"/>
+    <result column="chURL"        property="chURL"        jdbcType="VARCHAR"/>
+    <result column="flowURI"      property="flowURI"      jdbcType="VARCHAR"/>
+    <result column="descn"        property="descn"        jdbcType="VARCHAR"/>
+    <result column="cTime"        property="cTime"        jdbcType="TIMESTAMP"/>
+  </resultMap>
+  <!-- 所有列 -->
+  <sql id="Base_Column_List">
+    id, chId, chLiveId, chTitle, publisher, regionId, regionName, catagoryId, catagoryName, chImg, chURL, flowURI, descn, cTime
+  </sql>
+   <!-- 条件子句 -->
+  <sql id="WhereClauseByEntiey">
+    <where>
+      <trim prefix="(" suffix=")" prefixOverrides="and">
+        <if test="id!=null"> and id=#{id,jdbcType=VARCHAR}</if>
+        <if test="chId!=null"> and chId=#{chId,jdbcType=VARCHAR}</if>
+        <if test="chLiveId!=null"> and chLiveId=#{chLiveId,jdbcType=VARCHAR}</if>
+        <if test="chTitle!=null"> and chTitle=#{chTitle,jdbcType=VARCHAR}</if>
+        <if test="publisher!=null"> and publisher=#{publisher,jdbcType=VARCHAR}</if>
+        <if test="regionId!=null"> and regionId=#{regionId,jdbcType=VARCHAR}</if>
+        <if test="regionName!=null"> and regionName=#{regionName,jdbcType=VARCHAR}</if>
+        <if test="catagoryId!=null"> and catagoryId=#{catagoryId,jdbcType=VARCHAR}</if>
+        <if test="catagoryName!=null"> and catagoryName=#{catagoryName,jdbcType=VARCHAR}</if>
+        <if test="chImg!=null"> and chImg=#{chImg,jdbcType=VARCHAR}</if>
+        <if test="chURL!=null"> and chURL=#{chURL,jdbcType=VARCHAR}</if>
+        <if test="flowURI!=null"> and flowURI=#{flowURI,jdbcType=VARCHAR}</if>
+        <if test="descn!=null"> and descn=#{descn,jdbcType=VARCHAR}</if>
+        <if test="cTime!=null"> and cTime=#{cTime,jdbcType=TIMESTAMP}</if>
+      </trim>
+    </where>
+  </sql>
+  
+  <!-- 获得列表 -->
+  <select id="getList" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List"/> from qt_Channel where publisher=#{publisher,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 新增数据 -->
+  <insert id="insert" parameterType="java.util.Map">
+    insert into qt_Channel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id!=null">id,</if>
+      <if test="chId!=null">chId,</if>
+      <if test="chLiveId!=null">chLiveId,</if>
+      <if test="chTitle!=null">chTitle,</if>
+      <if test="publisher!=null">publisher,</if>
+      <if test="regionId!=null">regionId,</if>
+      <if test="chImg!=null">regionName,</if>
+      <if test="chURL!=null">catagoryId,</if>
+      <if test="flowURI!=null">catagoryName,</if>
+      <if test="chImg!=null">chImg,</if>
+      <if test="chURL!=null">chURL,</if>
+      <if test="flowURI!=null">flowURI,</if>
+      <if test="descn!=null">descn,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id!=null">#{id,jdbcType=VARCHAR},</if>
+      <if test="chId!=null">#{chId,jdbcType=VARCHAR},</if>
+      <if test="chLiveId!=null">#{chLiveId,jdbcType=VARCHAR},</if>
+      <if test="chTitle!=null">#{chTitle,jdbcType=VARCHAR},</if>
+      <if test="publisher!=null">#{publisher,jdbcType=VARCHAR},</if>
+      <if test="regionId!=null">#{regionId,jdbcType=VARCHAR},</if>
+      <if test="regionName!=null">#{regionName,jdbcType=VARCHAR},</if>
+      <if test="catagoryId!=null">#{catagoryId,jdbcType=VARCHAR},</if>
+      <if test="catagoryName!=null">#{catagoryName,jdbcType=VARCHAR},</if>
+      <if test="chImg!=null">#{chImg,jdbcType=VARCHAR},</if>
+      <if test="chURL!=null">#{chURL,jdbcType=VARCHAR},</if>
+      <if test="flowURI!=null">#{flowURI,jdbcType=VARCHAR},</if>
+      <if test="descn!=null">#{descn,jdbcType=VARCHAR},</if>
+    </trim>
+  </insert>
+  
+  <insert id="insertList" parameterType="java.util.List">
+    insert into qt_Channel(id,chId,chLiveId,chTitle,publisher,regionId,regionName,catagoryId,catagoryName,chImg,chURL,flowURI,descn,cTime) values
+    <foreach collection="list" item="list" index="index" separator=",">
+     (#{list.id},#{list.chId},#{list.chLiveId},#{list.chTitle},#{list.publisher},#{list.regionId},#{list.regionName},#{list.catagoryId},#{list.catagoryName},#{list.chImg},#{list.chURI},#{list.flowURI},#{list.descn},#{list.cTime})
+    </foreach>
+  </insert>
+  
+  <!-- 获得电台数据数据 -->
+  <select id="getChListByPublisher" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List"/>from qt_Channel where publisher=#{publisher,jdbcType=VARCHAR}
+  </select>
+  <!-- 删除数据 -->
+  <delete id="deleteByPublisher" parameterType="java.lang.String">
+    delete from qt_Channel where publisher=#{publisher,jdbcType=VARCHAR}
+  </delete>
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="A_REGION">
+  <!-- 对象定义:元数据列模式 -->
+  <resultMap id="BaseResultMap" type="region">
+    <id     column="id"         property="id"         jdbcType="VARCHAR"/>
+    <result column="srcId"      property="srcId"      jdbcType="VARCHAR"/>
+    <result column="publisher"  property="publisher"  jdbcType="VARCHAR"/>
+    <result column="regionName" property="regionName" jdbcType="VARCHAR"/>
+    <result column="regionURL"  property="regionURL"  jdbcType="VARCHAR"/>
+    <result column="cTime"      property="cTime"      jdbcType="TIMESTAMP"/>
+  </resultMap>
+   <!-- 所有列 -->
+  <sql id="Base_Column_List">
+    id, srcId, publisher, regionName, regionURL, cTime
+  </sql>
+  <!-- 条件子句 -->
+  <sql id="WhereClauseByEntiey">
+    <where>
+      <trim prefix="(" suffix=")" prefixOverrides="and">
+        <if test="id!=null"> and id=#{id,jdbcType=VARCHAR}</if>
+        <if test="srcId!=null"> and srcId=#{srcId,jdbcType=VARCHAR}</if>
+        <if test="publisher!=null"> and publisher=#{publisher,jdbcType=VARCHAR}</if>
+        <if test="regionName!=null"> and regionName=#{regionName,jdbcType=VARCHAR}</if>
+        <if test="regionURL!=null"> and regionURL=#{regionURL,jdbcType=VARCHAR}</if>
+        <if test="cTime!=null"> and cTime=#{cTime,jdbcType=TIMESTAMP}</if>
+      </trim>
+    </where>
+  </sql>
+  <insert id="insertlist" parameterType="java.util.List">
+    insert into qt_region(id,srcId,publisher,regionName,regionURL,cTime) values
+    <foreach collection="list" item="list" index="index" separator=",">
+     (#{list.id},#{list.srcId},#{list.publisher},#{list.regionName},#{list.regionURL},#{list.cTime})
+    </foreach>
+  </insert>
+  <!-- 获得地区数据 -->
+  <select id="getRegListByPublisher" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List"/>from qt_region where publisher=#{publisher,jdbcType=VARCHAR}
+  </select>
+  <!-- 删除数据 -->
+  <delete id="deleteByPublisher" parameterType="java.lang.String">
+    delete from qt_region where publisher=#{publisher,jdbcType=VARCHAR}
+  </delete>
+</mapper>

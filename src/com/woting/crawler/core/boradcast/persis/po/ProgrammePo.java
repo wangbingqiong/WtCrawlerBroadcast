@@ -15,6 +15,7 @@ public class ProgrammePo extends BaseObject {
 	private String chLiveId; //蜻蜓平台里电台节目资源对应Id
 	private String title; //节目名称
 	private int weekDay; //星期的第几天
+	private int sort;
 	private String begintime; //节目开始直播时间
 	private String endtime; //节目结束直播时间
 	private String duration; //节目持续时长
@@ -56,6 +57,12 @@ public class ProgrammePo extends BaseObject {
 	}
 	public void setWeekDay(int weekDay) {
 		this.weekDay = weekDay;
+	}
+	public int getSort() {
+		return sort;
+	}
+	public void setSort(int sort) {
+		this.sort = sort;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;

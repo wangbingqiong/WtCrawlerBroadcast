@@ -47,7 +47,7 @@ public class KGCrawler extends Thread {
 		new UpdateMySql().updateSqlInfo(null, chlist, null, publisher);
 		long endtime = System.currentTimeMillis();
 		System.out.println(publisher+"抓取完成");
-		return CrawlerInfo.getCrawlerInfo(endtime-begintime, null, chlist, null, KGCrawler.class.getName());
+		return CrawlerInfo.getCrawlerInfo(endtime-begintime, null, chlist, null, KGCrawler.class.getSimpleName());
 	}
 	
 	@Override

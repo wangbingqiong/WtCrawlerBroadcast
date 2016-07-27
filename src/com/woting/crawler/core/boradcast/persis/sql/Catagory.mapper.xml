@@ -30,12 +30,12 @@
   
   <!-- 获得列表 -->
   <select id="getList" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/> from qt_CHCatagory
+    select <include refid="Base_Column_List"/> from CHCatagory
   </select>
   
   <!-- 获得列表 -->
   <select id="getCatagoryListByPublisher" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select <include refid="Base_Column_List"/> from qt_CHCatagory where publisher=#{publisher,jdbcType=VARCHAR}
+    select <include refid="Base_Column_List"/> from CHCatagory where publisher=#{publisher,jdbcType=VARCHAR}
   </select>
   
 </mapper>

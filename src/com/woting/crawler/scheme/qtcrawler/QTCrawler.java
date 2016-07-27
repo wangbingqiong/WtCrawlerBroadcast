@@ -4,26 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.spiritdata.framework.util.JsonUtils;
 import com.woting.crawler.core.boradcast.persis.po.ChannelPo;
 import com.woting.crawler.core.boradcast.persis.po.ProgrammePo;
 import com.woting.crawler.core.boradcast.persis.po.RegionPo;
 import com.woting.crawler.scheme.tools.CrawlerInfo;
 import com.woting.crawler.scheme.tools.UpdateMySql;
 
-import thredds.catalog.CrawlableCatalog;
-
-public class QTCrawler {
+public class QTCrawler extends Thread {
 	private List<RegionPo> regionlist;
 	private List<ChannelPo> chlist = new ArrayList<ChannelPo>();
-	private List<ProgrammePo> fslist = new ArrayList<ProgrammePo>();
+	private List<ProgrammePo> prolist = new ArrayList<ProgrammePo>();
+	
+	private String publisher;
+	List<Map<String, Object>> list;
+	
+	public QTCrawler(String publisher, List<Map<String, Object>> list) {
+		this.publisher = publisher;
+		this.list = list;
+	}
+	
+	private synchronized void addCrawlerInfo(Map<String, Object> m) {
+		list.add(m);
+	}
 
-	public void beginQTCrawler(String publisher) {
-		System.out.println("蜻蜓抓取开始");
+	public Map<String, Object> beginQTCrawler(String publisher) {
+		System.out.println(publisher+"抓取行政区划开始");
+		long begtime = System.currentTimeMillis();
 		//抓取，先从地区开始
 		QTRegionCrawler region = new QTRegionCrawler();
 		QTBroadcastCrawler chcrawler = new QTBroadcastCrawler();
-		QTProgrammeCrawler fscrawler = new QTProgrammeCrawler();
 		Map<String, Object> regm = region.getQTRegion("http://www.qingting.fm/#/categories/1209");
 		regionlist = (List<RegionPo>) regm.get("regionlist");
 		regm.remove("regionlist");
@@ -35,7 +44,8 @@ public class QTCrawler {
 				for (ChannelPo channelPo : chs) {
 					try {
 						//抓取电台的节目信息
-						fslist.addAll(fscrawler.begionQTProgrammeCralwer(channelPo.getChLiveId()));
+						QTProgrammeCrawler procrawler = new QTProgrammeCrawler();
+						prolist.addAll(procrawler.begionQTProgrammeCralwer(channelPo.getChLiveId()));
 					} catch (Exception e) {e.printStackTrace();continue;}
 				}
 			} catch (Exception e) {e.printStackTrace();continue;}
@@ -50,7 +60,15 @@ public class QTCrawler {
 			channelPo.setCatagoryName(catamap.get(channelPo.getCatagoryId())+"");
 			channelPo.setRegionName(regm.get(channelPo.getRegionId())+"");
 		}
-		System.out.println("蜻蜓中间数据库更新");
-		new UpdateMySql().updateSqlInfo(regionlist, chlist, fslist, publisher);
+		System.out.println(publisher+"中间数据库更新");
+		new UpdateMySql().updateSqlInfo(regionlist, chlist, prolist, publisher);
+		long endtime = System.currentTimeMillis();
+		return CrawlerInfo.getCrawlerInfo(endtime-begtime, regionlist, chlist, prolist, QTCrawler.class.getSimpleName());
+	}
+	
+	@Override
+	public void run() {
+		Map<String, Object> m = beginQTCrawler(publisher);
+		addCrawlerInfo(m);
 	}
 }

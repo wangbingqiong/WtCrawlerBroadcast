@@ -29,17 +29,17 @@
   </sql>
   
   <insert id="insertlist" parameterType="java.util.List">
-    insert into qt_region(id,srcId,publisher,regionName,regionURL,cTime) values
+    insert into region(id,srcId,publisher,regionName,regionURL,cTime) values
     <foreach collection="list" item="list" index="index" separator=",">
      (#{list.id},#{list.srcId},#{list.publisher},#{list.regionName},#{list.regionURL},#{list.cTime})
     </foreach>
   </insert>
   <!-- 获得地区数据 -->
   <select id="getRegListByPublisher" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select <include refid="Base_Column_List"/>from qt_region where publisher=#{publisher,jdbcType=VARCHAR}
+    select <include refid="Base_Column_List"/>from region where publisher=#{publisher,jdbcType=VARCHAR}
   </select>
   <!-- 删除数据 -->
   <delete id="deleteByPublisher" parameterType="java.lang.String">
-    delete from qt_region where publisher=#{publisher,jdbcType=VARCHAR}
+    delete from region where publisher=#{publisher,jdbcType=VARCHAR}
   </delete>
 </mapper>

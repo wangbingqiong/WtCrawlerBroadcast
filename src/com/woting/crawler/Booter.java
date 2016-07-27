@@ -1,25 +1,11 @@
 package com.woting.crawler;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.spiritdata.framework.core.cache.CacheEle;
 import com.spiritdata.framework.core.cache.SystemCache;
-import com.spiritdata.framework.util.JsonUtils;
 import com.woting.crawler.ext.SpringShell;
-import com.woting.crawler.scheme.etl.compareBcInfo;
-import com.woting.crawler.scheme.kgcrawler.KGCatagoryCrawler;
-import com.woting.crawler.scheme.kgcrawler.KGCrawler;
-import com.woting.crawler.scheme.kgcrawler.KGRegionCrawler;
-import com.woting.crawler.scheme.qtcrawler.QTCatagoryCrawler;
-import com.woting.crawler.scheme.qtcrawler.QTCrawler;
-import com.woting.crawler.scheme.ygwcrawler.YGWCatagoryCrawlerCrawler;
-import com.woting.crawler.scheme.ygwcrawler.YGWCrawler;
-
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
@@ -89,18 +75,19 @@ public class Booter {
 //		System.out.println("开始数据整理");
 //		new compareBcInfo().compareCrawlerBcAndSqlBc();
 //      new YGWCrawler().beginYGWCrawler();
-        List<Map<String, Object>> crawlerlist = new ArrayList<Map<String,Object>>();
-        new KGCrawler("酷狗FM", crawlerlist).start();
-        while(true){
-        	try {
-				Thread.sleep(1000);
-			} catch (Exception e) {}
-        	System.out.println("##"+crawlerlist.size());
-        	if(crawlerlist!=null && crawlerlist.size()>0){
-        		
-        		break;
-        	}
-        }
-        System.out.println(JsonUtils.objToJson(crawlerlist));
+//        List<Map<String, Object>> crawlerlist = new ArrayList<Map<String,Object>>();
+//        new KGCrawler("酷狗FM", crawlerlist).start();
+//        new QTCrawler("蜻蜓FM", crawlerlist).start();
+//        new YGWCrawler("央广网FM", crawlerlist).start();
+//        while(true){
+//        	try {
+//				Thread.sleep(10000);
+//			} catch (Exception e) {}
+//        	System.out.println("##"+crawlerlist.size());
+//        	if(crawlerlist!=null && crawlerlist.size()==3){
+//        		break;
+//        	}
+//        }
+//        System.out.println(JsonUtils.objToJson(crawlerlist));
 	}
 }

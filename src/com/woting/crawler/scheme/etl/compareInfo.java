@@ -16,7 +16,7 @@ import com.woting.crawler.core.boradcast.service.ChannelService;
 import com.woting.crawler.core.boradcast.service.ProgrammeService;
 import com.woting.crawler.ext.SpringShell;
 
-public class compareBcInfo {
+public class compareInfo {
 	
 	private BroadcastService bcService;
 	private BcLiveFlowService bclfService;
@@ -66,5 +66,13 @@ public class compareBcInfo {
 		Map<String, Object> bclfmap = bclfService.getBCLFMap("蜻蜓FM"); //得到map key=bcSrcChannel : value=bcId
 		List<BCProgrammePo> bcplist = DataTransform.getBcpByBclfAndFes(bclfmap, prolist);
 		bcProService.insertBCProgrammeList(bcplist);
+	}
+	
+	public void contrastBcInfo(){
+		bclfService = (BcLiveFlowService) SpringShell.getBean("bcLiveFlowService");
+		bcProService = (BcProgrammeService) SpringShell.getBean("bcProgrammeService");
+		
+		List<BCLiveFlowPo> bclflist = bclfService.getBCLiveFlowList("");
+		
 	}
 }

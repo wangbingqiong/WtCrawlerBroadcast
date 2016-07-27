@@ -3,12 +3,9 @@ package com.woting.cm.core.broadcast.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
-
 import com.spiritdata.framework.core.dao.mybatis.MybatisDAO;
 import com.woting.cm.core.broadcast.persis.po.BCLiveFlowPo;
 
@@ -37,11 +34,24 @@ public class BcLiveFlowService {
 		return m;
 	}
 	
+	public void insertBCLiveFlow(BCLiveFlowPo bclf) {
+		bclfDao.insert("insert", bclf);
+	}
+	
+	public List<BCLiveFlowPo> getBCLiveFlowBySrcChannelId(String srcChannelId) {
+		List<BCLiveFlowPo> bclflist = bclfDao.queryForList("getBCLiveFolwBySrcChannelId", srcChannelId);
+		return bclflist;
+	}
+	
 	public void insertBCLiveFlowList(List<BCLiveFlowPo> bclflist) {
 		bclfDao.insert("insertList", bclflist);
 	}
 	
 	public void updateBCLiveFlowList(List<BCLiveFlowPo> bclflist) {
 		bclfDao.update("updateList", bclflist);
+	}
+	
+	public void deleteBCLiveFlowBySrcChannelId(String bcSrcChannelId) {
+		bclfDao.delete("deleteBybcSrcChannelId", bcSrcChannelId);
 	}
 }

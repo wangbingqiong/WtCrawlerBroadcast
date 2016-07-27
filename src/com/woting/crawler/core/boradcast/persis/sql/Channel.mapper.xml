@@ -48,7 +48,7 @@
   
   <!-- 新增数据 -->
   <insert id="insert" parameterType="java.util.Map">
-    insert into qt_Channel
+    insert into Channel
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id!=null">id,</if>
       <if test="chId!=null">chId,</if>
@@ -84,7 +84,7 @@
   </insert>
   
   <insert id="insertList" parameterType="java.util.List">
-    insert into qt_Channel(id,chId,chLiveId,chTitle,publisher,frequency,regionId,regionName,catagoryId,catagoryName,chImg,chURL,flowURI,descn,cTime) values
+    insert into Channel(id,chId,chLiveId,chTitle,publisher,frequency,regionId,regionName,catagoryId,catagoryName,chImg,chURL,flowURI,descn,cTime) values
     <foreach collection="list" item="list" index="index" separator=",">
      (#{list.id},#{list.chId},#{list.chLiveId},#{list.chTitle},#{list.publisher},#{list.frequency},#{list.regionId},#{list.regionName},#{list.catagoryId},#{list.catagoryName},#{list.chImg},#{list.chURL},#{list.flowURI},#{list.descn},#{list.cTime})
     </foreach>
@@ -92,10 +92,10 @@
   
   <!-- 获得电台数据数据 -->
   <select id="getChListByPublisher" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select <include refid="Base_Column_List"/>from qt_Channel where publisher=#{publisher,jdbcType=VARCHAR}
+    select <include refid="Base_Column_List"/>from Channel where publisher=#{publisher,jdbcType=VARCHAR}
   </select>
   <!-- 删除数据 -->
   <delete id="deleteByPublisher" parameterType="java.lang.String">
-    delete from qt_Channel where publisher=#{publisher,jdbcType=VARCHAR}
+    delete from Channel where publisher=#{publisher,jdbcType=VARCHAR}
   </delete>
 </mapper>

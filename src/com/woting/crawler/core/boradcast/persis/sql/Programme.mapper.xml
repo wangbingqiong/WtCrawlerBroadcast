@@ -9,6 +9,7 @@
     <result column="title"      property="title"      jdbcType="VARCHAR"/>
     <result column="publisher"  property="publisher"  jdbcType="VARCHAR"/>
     <result column="weekDay"    property="weekDay"    jdbcType="INTEGER"/>
+    <result column="sort"       property="sort"       jdbcType="INTEGER"/>
     <result column="begintime"  property="begintime"  jdbcType="VARCHAR"/>
     <result column="endtime"    property="endtime"    jdbcType="VARCHAR"/>
     <result column="duration"   property="duration"   jdbcType="VARCHAR"/>
@@ -16,7 +17,7 @@
   </resultMap>
   <!-- 所有列 -->
   <sql id="Base_Column_List">
-    id, chId, chLiveId, title, publisher, weekDay, begintime, endtime, duration, cTime
+    id, chId, chLiveId, title, publisher, weekDay, sort, begintime, endtime, duration, cTime
   </sql>
   <!-- 条件子句 -->
   <sql id="WhereClauseByEntiey">
@@ -28,6 +29,7 @@
         <if test="title!=null"> and title=#{title,jdbcType=VARCHAR}</if>
         <if test="publisher!=null"> and publisher=#{publisher,jdbcType=VARCHAR}</if>
         <if test="weekDay!=null and weekDay!=0"> and weekDay=#{weekDay,jdbcType=INTEGER}</if>
+        <if test="sort!=null and sort!=0"> and sort=#{sort,jdbcType=INTEGER}</if>
         <if test="begintime!=null"> and begintime=#{begintime,jdbcType=VARCHAR}</if>
         <if test="endtime!=null"> and endtime=#{endtime,jdbcType=VARCHAR}</if>
         <if test="duration!=null"> and duration=#{duration,jdbcType=VARCHAR}</if>
@@ -37,7 +39,7 @@
   </sql>
   <!-- 新增数据 -->
   <insert id="insert" parameterType="java.util.Map">
-    insert into qt_CHProgramme
+    insert into CHProgramme
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id!=null">id,</if>
       <if test="chId!=null">chId,</if>
@@ -45,6 +47,7 @@
       <if test="title!=null">title,</if>
       <if test="publisher!=null">publisher,</if>
       <if test="weekDay!=null and weekDay!=0">weekDay,</if>
+      <if test="sort!=null and sort!=0">sort,</if>
       <if test="begintime!=null">begintime,</if>
       <if test="endtime!=null">endtime,</if>
       <if test="duration!=null">duration,</if>
@@ -56,6 +59,7 @@
       <if test="title!=null">#{title,jdbcType=VARCHAR},</if>
       <if test="publisher!=null">#{publisher,jdbcType=VARCHAR},</if>
       <if test="weekDay!=null and weekDay!=0">#{weekDay,jdbcType=INTEGER},</if>
+      <if test="sort!=null and sort!=0">#{sort,jdbcType=INTEGER},</if>
       <if test="begintime!=null">#{begintime,jdbcType=VARCHAR},</if>
       <if test="endtime!=null">#{endtime,jdbcType=VARCHAR},</if>
       <if test="duration!=null">#{duration,jdbcType=VARCHAR},</if>
@@ -63,19 +67,19 @@
   </insert>
   
   <insert id="insertlist" parameterType="java.util.List">
-    insert into qt_CHProgramme(id,chId,chLiveId,title,publisher,weekDay,begintime,endtime,duration,cTime) values
+    insert into CHProgramme(id,chId,chLiveId,title,publisher,weekDay,sort,begintime,endtime,duration,cTime) values
     <foreach collection="list" item="list" index="index" separator=",">
-     (#{list.id},#{list.chId},#{list.chLiveId},#{list.title},#{list.publisher},#{list.weekDay},#{list.begintime},#{list.endtime},#{list.duration},#{list.cTime})
+     (#{list.id},#{list.chId},#{list.chLiveId},#{list.title},#{list.publisher},#{list.weekDay},#{list.sort},#{list.begintime},#{list.endtime},#{list.duration},#{list.cTime})
     </foreach>
   </insert>
   
   <!-- 获得节目数据 -->
   <select id="getProListByPublisher" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select <include refid="Base_Column_List"/>from qt_CHProgramme where publisher=#{publisher,jdbcType=VARCHAR}
+    select <include refid="Base_Column_List"/>from CHProgramme where publisher=#{publisher,jdbcType=VARCHAR}
   </select>
   
   <!-- 删除数据 -->
   <delete id="deleteByPublisher" parameterType="java.lang.String">
-    delete from qt_CHProgramme where publisher=#{publisher,jdbcType=VARCHAR}
+    delete from CHProgramme where publisher=#{publisher,jdbcType=VARCHAR}
   </delete>
 </mapper>

@@ -3,11 +3,7 @@ package com.woting.crawler.scheme.kgcrawler;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.print.attribute.standard.MediaName;
-
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.bouncycastle.jce.provider.BrokenJCEBlockCipher.BrokePBEWithMD5AndDES;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import com.spiritdata.framework.util.JsonUtils;

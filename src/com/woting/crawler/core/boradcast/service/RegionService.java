@@ -1,12 +1,8 @@
 package com.woting.crawler.core.boradcast.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
 import com.spiritdata.framework.core.dao.mybatis.MybatisDAO;
 import com.woting.crawler.core.boradcast.persis.po.RegionPo;

@@ -14,6 +14,7 @@ public class ChannelPo extends BaseObject {
 	private String chTitle;
 	private String chId;
 	private String chLiveId;
+	private String frequency;
 	private String regionId;
 	private String regionName;
 	private String catagoryId;
@@ -48,6 +49,12 @@ public class ChannelPo extends BaseObject {
 	}
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
+	}
+	public String getFrequency() {
+		return frequency;
+	}
+	public void setFrequency(String frequency) {
+		this.frequency = frequency;
 	}
 	public String getRegionName() {
 		return regionName;

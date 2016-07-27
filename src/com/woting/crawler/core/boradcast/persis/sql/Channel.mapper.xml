@@ -8,6 +8,7 @@
     <result column="chLiveId"     property="chLiveId"     jdbcType="VARCHAR"/>
     <result column="chTitle"      property="chTitle"      jdbcType="VARCHAR"/>
     <result column="publisher"    property="publisher"    jdbcType="VARCHAR"/>
+    <result column="frequency"    property="frequency"    jdbcType="VARCHAR"/>
     <result column="regionId"     property="regionId"     jdbcType="VARCHAR"/>
     <result column="regionName"   property="regionName"   jdbcType="VARCHAR"/>
     <result column="catagoryId"   property="catagoryId"   jdbcType="VARCHAR"/>
@@ -20,7 +21,7 @@
   </resultMap>
   <!-- 所有列 -->
   <sql id="Base_Column_List">
-    id, chId, chLiveId, chTitle, publisher, regionId, regionName, catagoryId, catagoryName, chImg, chURL, flowURI, descn, cTime
+    id, chId, chLiveId, chTitle, publisher, frequency, regionId, regionName, catagoryId, catagoryName, chImg, chURL, flowURI, descn, cTime
   </sql>
    <!-- 条件子句 -->
   <sql id="WhereClauseByEntiey">
@@ -31,6 +32,7 @@
         <if test="chLiveId!=null"> and chLiveId=#{chLiveId,jdbcType=VARCHAR}</if>
         <if test="chTitle!=null"> and chTitle=#{chTitle,jdbcType=VARCHAR}</if>
         <if test="publisher!=null"> and publisher=#{publisher,jdbcType=VARCHAR}</if>
+        <if test="frequency!=null"> and frequency=#{frequency,jdbcType=VARCHAR}</if>
         <if test="regionId!=null"> and regionId=#{regionId,jdbcType=VARCHAR}</if>
         <if test="regionName!=null"> and regionName=#{regionName,jdbcType=VARCHAR}</if>
         <if test="catagoryId!=null"> and catagoryId=#{catagoryId,jdbcType=VARCHAR}</if>
@@ -53,6 +55,7 @@
       <if test="chLiveId!=null">chLiveId,</if>
       <if test="chTitle!=null">chTitle,</if>
       <if test="publisher!=null">publisher,</if>
+      <if test="frequency!=null">frequency,</if>
       <if test="regionId!=null">regionId,</if>
       <if test="chImg!=null">regionName,</if>
       <if test="chURL!=null">catagoryId,</if>
@@ -68,6 +71,7 @@
       <if test="chLiveId!=null">#{chLiveId,jdbcType=VARCHAR},</if>
       <if test="chTitle!=null">#{chTitle,jdbcType=VARCHAR},</if>
       <if test="publisher!=null">#{publisher,jdbcType=VARCHAR},</if>
+      <if test="frequency!=null">#{frequency,jdbcType=VARCHAR},</if>
       <if test="regionId!=null">#{regionId,jdbcType=VARCHAR},</if>
       <if test="regionName!=null">#{regionName,jdbcType=VARCHAR},</if>
       <if test="catagoryId!=null">#{catagoryId,jdbcType=VARCHAR},</if>
@@ -80,9 +84,9 @@
   </insert>
   
   <insert id="insertList" parameterType="java.util.List">
-    insert into qt_Channel(id,chId,chLiveId,chTitle,publisher,regionId,regionName,catagoryId,catagoryName,chImg,chURL,flowURI,descn,cTime) values
+    insert into qt_Channel(id,chId,chLiveId,chTitle,publisher,frequency,regionId,regionName,catagoryId,catagoryName,chImg,chURL,flowURI,descn,cTime) values
     <foreach collection="list" item="list" index="index" separator=",">
-     (#{list.id},#{list.chId},#{list.chLiveId},#{list.chTitle},#{list.publisher},#{list.regionId},#{list.regionName},#{list.catagoryId},#{list.catagoryName},#{list.chImg},#{list.chURL},#{list.flowURI},#{list.descn},#{list.cTime})
+     (#{list.id},#{list.chId},#{list.chLiveId},#{list.chTitle},#{list.publisher},#{list.frequency},#{list.regionId},#{list.regionName},#{list.catagoryId},#{list.catagoryName},#{list.chImg},#{list.chURL},#{list.flowURI},#{list.descn},#{list.cTime})
     </foreach>
   </insert>
   

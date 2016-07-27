@@ -25,4 +25,9 @@ public class CatagoryService {
 		List<CatagoryPo> catagorylist = catagoryDao.queryForList("getCatagoryListByPublisher", publisher);
 		return catagorylist;
 	}
+	
+	public List<CatagoryPo> getCatagoryList() {
+		List<CatagoryPo> catagorylist = catagoryDao.queryForList("getList");
+		return catagorylist;
+	}
 }

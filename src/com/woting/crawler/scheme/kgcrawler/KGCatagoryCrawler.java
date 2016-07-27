@@ -1,10 +1,13 @@
-package com.woting.crawler.scheme.qtcrawler;
+package com.woting.crawler.scheme.kgcrawler;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.print.attribute.standard.MediaName;
+
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.bouncycastle.jce.provider.BrokenJCEBlockCipher.BrokePBEWithMD5AndDES;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import com.spiritdata.framework.util.JsonUtils;
@@ -12,34 +15,33 @@ import com.woting.crawler.core.boradcast.persis.po.CatagoryPo;
 import com.woting.crawler.core.boradcast.service.CatagoryService;
 import com.woting.crawler.ext.SpringShell;
 
-public class QTCatagoryCrawler {
+public class KGCatagoryCrawler {
+
 	private CatagoryService cataService;
 
 	public Map<String, Object> getCatagory2ChMap(String publisher) {
 		cataService = (CatagoryService) SpringShell.getBean("catagoryService");
 		List<CatagoryPo> catalist = cataService.getCatagoryList(publisher);
-		Map<String, Object> chmap = new HashMap<String,Object>();
-		Map<String, Object> catamap = new HashMap<String,Object>();
-		Document doc ;
+		Map<String, Object> catamap = new HashMap<String, Object>();
+		Document doc;
 		try {
 			for (CatagoryPo catagoryPo : catalist) {
 				doc = Jsoup.connect(catagoryPo.getCatagoryURL()).ignoreContentType(true).timeout(10000).get();
 				String jsonstr = doc.getElementsByTag("body").get(0).html();
 				jsonstr = StringEscapeUtils.unescapeHtml4(jsonstr);
-				Map<String, Object> m = (Map<String, Object>) JsonUtils.jsonToObj(jsonstr, Map.class);
-				List<Map<String, Object>> datalist = (List<Map<String, Object>>) m.get("data");
-				String cataid = catagoryPo.getId();
+				Map<String, Object> camap = (Map<String, Object>) JsonUtils.jsonToObj(jsonstr, Map.class);
+				List<Map<String, Object>> calist = (List<Map<String, Object>>) camap.get("program_info_list");
+				String cataid = catagoryPo.getSrcId();
 				String cataname = catagoryPo.getCatagoryName();
-				catamap.put(cataid, cataname);
-				for (Map<String, Object> map : datalist) {
-					String chliveid = map.get("id")+"";
-					chmap.put(chliveid, cataid);
+				for (Map<String, Object> m : calist) {
+					String chid = m.get("channel_key")+"";
+					catamap.put(chid, cataid);
+					catamap.put("KG"+cataid, cataname);
 				}
 			}
-		} catch (Exception e) {e.printStackTrace();}
-		Map<String, Object> map = new HashMap<>();
-		map.put("chmap", chmap);
-		map.put("catamap",catamap);
-		return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return catamap;
 	}
 }

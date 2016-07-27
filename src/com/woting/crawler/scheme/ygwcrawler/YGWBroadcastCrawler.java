@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -21,7 +22,8 @@ public class YGWBroadcastCrawler {
 		try {
 			doc = Jsoup.connect("http://bk2.radio.cn/mms4/videoPlay/pcGetChannels.jspa?area="+srcId+"&type=0").ignoreContentType(true).timeout(20000).get();
 			String str = doc.select("body").get(0).html();
-			str = str.replace("&quot;", "\"").replace("(", "").replace(")", "");
+			str = StringEscapeUtils.unescapeHtml4(str);
+			str = str.replace("(", "").replace(")", "");
 			str = str.substring(4, str.length());
 			List<Map<String, Object>> chs = (List<Map<String, Object>>) JsonUtils.jsonToObj(str, List.class);
 			for (Map<String, Object> m : chs) {
@@ -36,7 +38,8 @@ public class YGWBroadcastCrawler {
 				+ "&terminalType=PC&location=http%3A//www.radio.cn/index.php%3Foption%3Ddefault%2Cradio").ignoreContentType(true).get();
 				str = doc.select("body").get(0).html();
 				str = str.substring(4, str.length());
-				str = str.replace("&quot;", "\"").replace("(", "").replace(")", "");
+				str = StringEscapeUtils.unescapeHtml4(str);
+				str = str.replace("(", "").replace(")", "");
 				Map<String, Object> m2 = (Map<String, Object>) JsonUtils.jsonToObj(str, Map.class);
 				List<Map<String, Object>> streams = (List<Map<String, Object>>) m2.get("streams");
 				if (streams != null && streams.size() > 0) {
@@ -44,7 +47,7 @@ public class YGWBroadcastCrawler {
 					String flowurl = m3.get("url") + "";
 					ch.setFlowURI(flowurl);
 				}
-				ch.setChId(SequenceUUID.getUUIDSubSegment(4));
+				ch.setId(SequenceUUID.getUUIDSubSegment(4));
 				ch.setChId(chid);
 				ch.setChImg(icon);
 				ch.setChTitle(title);

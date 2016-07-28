@@ -39,12 +39,12 @@ public class YGWCrawler extends Thread {
 		}
 		System.out.println(publisher+"电台内容分类整合");
 		// 进行地区和内容分类信息整合
-		YGWCatagoryCrawlerCrawler catacrawler = new YGWCatagoryCrawlerCrawler();
-		Map<String, Object> catamap = catacrawler.getCatagory2ChMap(publisher);
+		YGWCategoryCrawler catecrawler = new YGWCategoryCrawler();
+		Map<String, Object> catemap = catecrawler.getCategory2ChMap(publisher);
 		for (ChannelPo ch : chlist) {
 			ch.setRegionName(regmap.get(ch.getRegionId()) + "");
-			ch.setCatagoryId(catamap.get(ch.getChId()) + "");
-			ch.setCatagoryName(catamap.get("YGW" + ch.getCatagoryId()) + "");
+			ch.setCategoryId(catemap.get(ch.getChId()) + "");
+			ch.setCategoryName(catemap.get("YGW" + ch.getCategoryId()) + "");
 		}
 		System.err.println(publisher+"更新中间库");
 		new UpdateMySql().updateSqlInfo(regionlist, chlist, null, publisher);

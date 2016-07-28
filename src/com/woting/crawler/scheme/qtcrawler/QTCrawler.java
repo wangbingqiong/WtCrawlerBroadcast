@@ -51,13 +51,13 @@ public class QTCrawler extends Thread {
 			} catch (Exception e) {e.printStackTrace();continue;}
 		}
 		//开始内容分类抓取
-		QTCatagoryCrawler cataCrawler = new QTCatagoryCrawler();
-		Map<String, Object> map = cataCrawler.getCatagory2ChMap(publisher);
+		QTCategoryCrawler cateCrawler = new QTCategoryCrawler();
+		Map<String, Object> map = cateCrawler.getCategory2ChMap(publisher);
 		Map<String, Object> chmap = (Map<String, Object>) map.get("chmap");
-		Map<String, Object> catamap = (Map<String, Object>) map.get("catamap");
+		Map<String, Object> catemap = (Map<String, Object>) map.get("catemap");
 		for (ChannelPo channelPo : chlist) {
-			channelPo.setCatagoryId(chmap.get(channelPo.getChLiveId())+"");
-			channelPo.setCatagoryName(catamap.get(channelPo.getCatagoryId())+"");
+			channelPo.setCategoryId(chmap.get(channelPo.getChLiveId())+"");
+			channelPo.setCategoryName(catemap.get(channelPo.getCategoryId())+"");
 			channelPo.setRegionName(regm.get(channelPo.getRegionId())+"");
 		}
 		System.out.println(publisher+"中间数据库更新");

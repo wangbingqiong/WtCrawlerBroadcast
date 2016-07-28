@@ -39,7 +39,7 @@
   </sql>
   <!-- 新增数据 -->
   <insert id="insert" parameterType="java.util.Map">
-    insert into CHProgramme
+    insert into bc_Programme
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id!=null">id,</if>
       <if test="chId!=null">chId,</if>
@@ -67,7 +67,7 @@
   </insert>
   
   <insert id="insertlist" parameterType="java.util.List">
-    insert into CHProgramme(id,chId,chLiveId,title,publisher,weekDay,sort,begintime,endtime,duration,cTime) values
+    insert into bc_Programme(id,chId,chLiveId,title,publisher,weekDay,sort,begintime,endtime,duration,cTime) values
     <foreach collection="list" item="list" index="index" separator=",">
      (#{list.id},#{list.chId},#{list.chLiveId},#{list.title},#{list.publisher},#{list.weekDay},#{list.sort},#{list.begintime},#{list.endtime},#{list.duration},#{list.cTime})
     </foreach>
@@ -75,11 +75,11 @@
   
   <!-- 获得节目数据 -->
   <select id="getProListByPublisher" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select <include refid="Base_Column_List"/>from CHProgramme where publisher=#{publisher,jdbcType=VARCHAR}
+    select <include refid="Base_Column_List"/>from bc_Programme where publisher=#{publisher,jdbcType=VARCHAR}
   </select>
   
   <!-- 删除数据 -->
   <delete id="deleteByPublisher" parameterType="java.lang.String">
-    delete from CHProgramme where publisher=#{publisher,jdbcType=VARCHAR}
+    delete from bc_Programme where publisher=#{publisher,jdbcType=VARCHAR}
   </delete>
 </mapper>

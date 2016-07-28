@@ -26,7 +26,7 @@ public class KGCrawler extends Thread {
 		System.out.println(publisher+"开始抓取");
 		long begintime = System.currentTimeMillis();
 		KGRegionCrawler regionCrawler = new KGRegionCrawler();
-		KGCatagoryCrawler cataCrawler = new KGCatagoryCrawler();
+		KGCategoryCrawler cateCrawler = new KGCategoryCrawler();
 		KGBroadcastCrawler bcCrawler = new KGBroadcastCrawler();
 		List<ChannelPo> chlist = new ArrayList<ChannelPo>();
 		System.out.println(publisher+"抓取行政区划信息");
@@ -37,11 +37,11 @@ public class KGCrawler extends Thread {
 			chlist.addAll(bcCrawler.getKGBroadcastList(regionPo.getRegionURL()));
 		}
 		System.out.println(publisher+"加载内容分类信息");
-		Map<String, Object> catamap = cataCrawler.getCatagory2ChMap(publisher);
+		Map<String, Object> catemap = cateCrawler.getCategory2ChMap(publisher);
 		for (ChannelPo ch : chlist) {
 			ch.setRegionName(regmap.get(ch.getRegionId())+"");
-			ch.setCatagoryId(catamap.get(ch.getChId())+"");
-			ch.setCatagoryName(catamap.get(ch.getCatagoryId())+"");
+			ch.setCategoryId(catemap.get(ch.getChId())+"");
+			ch.setCategoryName(catemap.get(ch.getCategoryId())+"");
 		}
 		System.out.println(publisher+"更新中间数据库");
 		new UpdateMySql().updateSqlInfo(null, chlist, null, publisher);

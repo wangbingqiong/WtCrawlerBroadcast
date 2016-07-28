@@ -17,8 +17,8 @@ public class ChannelPo extends BaseObject {
 	private String frequency;
 	private String regionId;
 	private String regionName;
-	private String catagoryId;
-	private String catagoryName;
+	private String categoryId;
+	private String categoryName;
 	private String chImg;
 	private String chURL;
 	private String flowURI;
@@ -62,17 +62,17 @@ public class ChannelPo extends BaseObject {
 	public void setRegionName(String regionName) {
 		this.regionName = regionName;
 	}
-	public String getCatagoryId() {
-		return catagoryId;
+	public String getCategoryId() {
+		return categoryId;
 	}
-	public void setCatagoryId(String catagoryId) {
-		this.catagoryId = catagoryId;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
-	public String getCatagoryName() {
-		return catagoryName;
+	public String getCategoryName() {
+		return categoryName;
 	}
-	public void setCatagoryName(String catagoryName) {
-		this.catagoryName = catagoryName;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	public String getChId() {
 		return chId;

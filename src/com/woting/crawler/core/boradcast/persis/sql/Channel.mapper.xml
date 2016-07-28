@@ -11,8 +11,8 @@
     <result column="frequency"    property="frequency"    jdbcType="VARCHAR"/>
     <result column="regionId"     property="regionId"     jdbcType="VARCHAR"/>
     <result column="regionName"   property="regionName"   jdbcType="VARCHAR"/>
-    <result column="catagoryId"   property="catagoryId"   jdbcType="VARCHAR"/>
-    <result column="catagoryName" property="catagoryName" jdbcType="VARCHAR"/>
+    <result column="categoryId"   property="categoryId"   jdbcType="VARCHAR"/>
+    <result column="categoryName" property="categoryName" jdbcType="VARCHAR"/>
     <result column="chImg"        property="chImg"        jdbcType="VARCHAR"/>
     <result column="chURL"        property="chURL"        jdbcType="VARCHAR"/>
     <result column="flowURI"      property="flowURI"      jdbcType="VARCHAR"/>
@@ -21,7 +21,7 @@
   </resultMap>
   <!-- 所有列 -->
   <sql id="Base_Column_List">
-    id, chId, chLiveId, chTitle, publisher, frequency, regionId, regionName, catagoryId, catagoryName, chImg, chURL, flowURI, descn, cTime
+    id, chId, chLiveId, chTitle, publisher, frequency, regionId, regionName, categoryId, categoryName, chImg, chURL, flowURI, descn, cTime
   </sql>
    <!-- 条件子句 -->
   <sql id="WhereClauseByEntiey">
@@ -35,8 +35,8 @@
         <if test="frequency!=null"> and frequency=#{frequency,jdbcType=VARCHAR}</if>
         <if test="regionId!=null"> and regionId=#{regionId,jdbcType=VARCHAR}</if>
         <if test="regionName!=null"> and regionName=#{regionName,jdbcType=VARCHAR}</if>
-        <if test="catagoryId!=null"> and catagoryId=#{catagoryId,jdbcType=VARCHAR}</if>
-        <if test="catagoryName!=null"> and catagoryName=#{catagoryName,jdbcType=VARCHAR}</if>
+        <if test="categoryId!=null"> and categoryId=#{categoryId,jdbcType=VARCHAR}</if>
+        <if test="categoryName!=null"> and categoryName=#{categoryName,jdbcType=VARCHAR}</if>
         <if test="chImg!=null"> and chImg=#{chImg,jdbcType=VARCHAR}</if>
         <if test="chURL!=null"> and chURL=#{chURL,jdbcType=VARCHAR}</if>
         <if test="flowURI!=null"> and flowURI=#{flowURI,jdbcType=VARCHAR}</if>
@@ -48,7 +48,7 @@
   
   <!-- 新增数据 -->
   <insert id="insert" parameterType="java.util.Map">
-    insert into Channel
+    insert into bc_Channel
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id!=null">id,</if>
       <if test="chId!=null">chId,</if>
@@ -57,9 +57,9 @@
       <if test="publisher!=null">publisher,</if>
       <if test="frequency!=null">frequency,</if>
       <if test="regionId!=null">regionId,</if>
-      <if test="chImg!=null">regionName,</if>
-      <if test="chURL!=null">catagoryId,</if>
-      <if test="flowURI!=null">catagoryName,</if>
+      <if test="regionName!=null">regionName,</if>
+      <if test="categoryId!=null">categoryId,</if>
+      <if test="categoryName!=null">categoryName,</if>
       <if test="chImg!=null">chImg,</if>
       <if test="chURL!=null">chURL,</if>
       <if test="flowURI!=null">flowURI,</if>
@@ -74,8 +74,8 @@
       <if test="frequency!=null">#{frequency,jdbcType=VARCHAR},</if>
       <if test="regionId!=null">#{regionId,jdbcType=VARCHAR},</if>
       <if test="regionName!=null">#{regionName,jdbcType=VARCHAR},</if>
-      <if test="catagoryId!=null">#{catagoryId,jdbcType=VARCHAR},</if>
-      <if test="catagoryName!=null">#{catagoryName,jdbcType=VARCHAR},</if>
+      <if test="categoryId!=null">#{categoryId,jdbcType=VARCHAR},</if>
+      <if test="categoryName!=null">#{categoryName,jdbcType=VARCHAR},</if>
       <if test="chImg!=null">#{chImg,jdbcType=VARCHAR},</if>
       <if test="chURL!=null">#{chURL,jdbcType=VARCHAR},</if>
       <if test="flowURI!=null">#{flowURI,jdbcType=VARCHAR},</if>
@@ -84,18 +84,18 @@
   </insert>
   
   <insert id="insertList" parameterType="java.util.List">
-    insert into Channel(id,chId,chLiveId,chTitle,publisher,frequency,regionId,regionName,catagoryId,catagoryName,chImg,chURL,flowURI,descn,cTime) values
+    insert into bc_Channel(id,chId,chLiveId,chTitle,publisher,frequency,regionId,regionName,categoryId,categoryName,chImg,chURL,flowURI,descn,cTime) values
     <foreach collection="list" item="list" index="index" separator=",">
-     (#{list.id},#{list.chId},#{list.chLiveId},#{list.chTitle},#{list.publisher},#{list.frequency},#{list.regionId},#{list.regionName},#{list.catagoryId},#{list.catagoryName},#{list.chImg},#{list.chURL},#{list.flowURI},#{list.descn},#{list.cTime})
+     (#{list.id},#{list.chId},#{list.chLiveId},#{list.chTitle},#{list.publisher},#{list.frequency},#{list.regionId},#{list.regionName},#{list.categoryId},#{list.categoryName},#{list.chImg},#{list.chURL},#{list.flowURI},#{list.descn},#{list.cTime})
     </foreach>
   </insert>
   
   <!-- 获得电台数据数据 -->
   <select id="getChListByPublisher" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select <include refid="Base_Column_List"/>from Channel where publisher=#{publisher,jdbcType=VARCHAR}
+    select <include refid="Base_Column_List"/>from bc_Channel where publisher=#{publisher,jdbcType=VARCHAR}
   </select>
   <!-- 删除数据 -->
   <delete id="deleteByPublisher" parameterType="java.lang.String">
-    delete from Channel where publisher=#{publisher,jdbcType=VARCHAR}
+    delete from bc_Channel where publisher=#{publisher,jdbcType=VARCHAR}
   </delete>
 </mapper>

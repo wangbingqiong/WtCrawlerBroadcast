@@ -4,14 +4,14 @@ import java.sql.Timestamp;
 
 import com.spiritdata.framework.core.model.BaseObject;
 
-public class CatagoryPo extends BaseObject {
+public class CategoryPo extends BaseObject {
 	private static final long serialVersionUID = 2216989056832581267L;
 	
 	private String id;
 	private String srcId;
 	private String publisher;
-	private String catagoryName;
-	private String catagoryURL;
+	private String categoryName;
+	private String categoryURL;
 	private Timestamp cTime;
 	
 	public String getId() {
@@ -32,17 +32,17 @@ public class CatagoryPo extends BaseObject {
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
-	public String getCatagoryName() {
-		return catagoryName;
+	public String getCategoryName() {
+		return categoryName;
 	}
-	public void setCatagoryName(String catagoryName) {
-		this.catagoryName = catagoryName;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
-	public String getCatagoryURL() {
-		return catagoryURL;
+	public String getCategoryURL() {
+		return categoryURL;
 	}
-	public void setCatagoryURL(String catagoryURL) {
-		this.catagoryURL = catagoryURL;
+	public void setCategoryURL(String categoryURL) {
+		this.categoryURL = categoryURL;
 	}
 	public Timestamp getcTime() {
 		return cTime;

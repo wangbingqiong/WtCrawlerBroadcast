@@ -1,6 +1,9 @@
 package com.woting.cm.core.broadcast.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
@@ -26,5 +29,14 @@ public class BcProgrammeService {
 	
 	public void deleteById(String id) {
 		bcProDao.delete("deleteById", id);
+	}
+	
+	public Map<String, Object> getBCProgrammeStr(){
+		Map<String, Object> bcprostr = new HashMap<String,Object>();
+		List<BCProgrammePo> bcprolist = bcProDao.queryForList("getBCProgrammeList");
+		for (BCProgrammePo bcPro : bcprolist) {
+			bcprostr.put(bcPro.getBcId()+bcPro.getWeekDay()+bcPro.getSort(), bcPro.getTitle()+bcPro.getBeginTime()+bcPro.getEndTime());
+		}
+		return bcprostr;
 	}
 }

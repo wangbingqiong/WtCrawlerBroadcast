@@ -1,6 +1,7 @@
 package com.woting.crawler;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +10,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.spiritdata.framework.core.cache.CacheEle;
 import com.spiritdata.framework.core.cache.SystemCache;
+import com.spiritdata.framework.jsonconf.JsonConfig;
 import com.spiritdata.framework.util.JsonUtils;
+import com.woting.cm.core.broadcast.persis.po.BCLiveFlowPo;
+import com.woting.cm.core.broadcast.service.BcLiveFlowService;
+import com.woting.cm.core.dict.mem._CacheDictionary;
+import com.woting.cm.core.dict.model.DictModel;
+import com.woting.cm.core.dict.service.DictService;
+import com.woting.crawler.core.boradcast.persis.po.ChannelPo;
+import com.woting.crawler.core.boradcast.service.ChannelService;
 import com.woting.crawler.ext.SpringShell;
+import com.woting.crawler.scheme.control.SchemeControl;
+import com.woting.crawler.scheme.etl.CompareInfo;
 import com.woting.crawler.scheme.kgcrawler.KGCrawler;
 import com.woting.crawler.scheme.qtcrawler.QTCrawler;
 import com.woting.crawler.scheme.ygwcrawler.YGWCrawler;
@@ -78,25 +89,12 @@ public class Booter {
 //        logger.info("加载内容资源库数据，用时[{}]毫秒", System.currentTimeMillis()-_begin);
 //        logger.info("内容抓取，环境初始化结束，共用时[{}]毫秒", System.currentTimeMillis()-beginTime);
         
-        //开始抓取
-//        new QTCrawler().beginQTCrawler();
-//		System.out.println("抓取完成");
-//		System.out.println("开始数据整理");
-//		new compareBcInfo().compareCrawlerBcAndSqlBc();
-//      new YGWCrawler().beginYGWCrawler();
-        List<Map<String, Object>> crawlerlist = new ArrayList<Map<String,Object>>();
-        new KGCrawler("酷狗FM", crawlerlist).start();
-        new QTCrawler("蜻蜓FM", crawlerlist).start();
-        new YGWCrawler("央广网FM", crawlerlist).start();
-        while(true){
-        	try {
-				Thread.sleep(10000);
-			} catch (Exception e) {}
-        	System.out.println("##"+crawlerlist.size());
-        	if(crawlerlist!=null && crawlerlist.size()==3){
-        		break;
-        	}
-        }
-        System.out.println(JsonUtils.objToJson(crawlerlist));
+        //开始抓取 
+//        SchemeControl schemeControl = new SchemeControl();
+//        List<Map<String, Object>> resultlist = schemeControl.progress_1();
+//        System.out.println(JsonUtils.objToJson(resultlist));
+        DictService dictService = (DictService) SpringShell.getBean("dictService");
+        _CacheDictionary _c = dictService.loadCache();
+        System.out.println(JsonUtils.objToJson(_c.getDictModelById("2")));
 	}
 }

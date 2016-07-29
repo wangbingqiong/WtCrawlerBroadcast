@@ -13,6 +13,7 @@ import com.woting.crawler.core.boradcast.persis.po.ChannelPo;
 
 public class KGBroadcastCrawler {
 
+	@SuppressWarnings("unchecked")
 	public List<ChannelPo> getKGBroadcastList(String regionurl) {
 		List<ChannelPo> chlist = new ArrayList<ChannelPo>();
 		Document doc;

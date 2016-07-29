@@ -20,6 +20,20 @@ public class BcLiveFlowService {
         bclfDao.setNamespace("A_BCLIVEFLOW");
     }
 	
+	public Map<String, Object> getBCLiveFlowMap(){
+		Map<String, Object> m1 = new HashMap<String,Object>();
+		Map<String, Object> m2 = new HashMap<String,Object>();
+		List<BCLiveFlowPo> bclflist = bclfDao.queryForList("getBCLiveFolwList");
+		for (BCLiveFlowPo bcLiveFlowPo : bclflist) {
+			m1.put(bcLiveFlowPo.getBcSource()+"::"+bcLiveFlowPo.getBcSrcChannelId(), bcLiveFlowPo.getFlowURI());
+			m2.put(bcLiveFlowPo.getBcSource()+"::"+bcLiveFlowPo.getBcSrcChannelId(), bcLiveFlowPo.getBcId());
+		}
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("chid_flowuri", m1);
+		map.put("chid_bcid", m2);
+		return map;
+	}
+	
 	public List<BCLiveFlowPo> getBCLiveFlowList(String bcSource){
 		List<BCLiveFlowPo> bclflist = bclfDao.queryForList("getBCLiveFolwByBcSource", bcSource);
 		return bclflist;

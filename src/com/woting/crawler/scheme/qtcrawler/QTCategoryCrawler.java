@@ -13,22 +13,24 @@ import com.woting.crawler.core.boradcast.service.CategoryService;
 import com.woting.crawler.ext.SpringShell;
 
 public class QTCategoryCrawler {
+	
 	private CategoryService cateService;
 
+	@SuppressWarnings("unchecked")
 	public Map<String, Object> getCategory2ChMap(String publisher) {
 		cateService = (CategoryService) SpringShell.getBean("categoryService");
-		List<CategoryPo> catalist = cateService.getCategoryList(publisher);
+		List<CategoryPo> catelist = cateService.getCategoryList(publisher);
 		Map<String, Object> chmap = new HashMap<String,Object>();
 		Map<String, Object> catemap = new HashMap<String,Object>();
 		Document doc ;
 		try {
-			for (CategoryPo categoryPo : catalist) {
+			for (CategoryPo categoryPo : catelist) {
 				doc = Jsoup.connect(categoryPo.getCategoryURL()).ignoreContentType(true).timeout(10000).get();
 				String jsonstr = doc.getElementsByTag("body").get(0).html();
 				jsonstr = StringEscapeUtils.unescapeHtml4(jsonstr);
 				Map<String, Object> m = (Map<String, Object>) JsonUtils.jsonToObj(jsonstr, Map.class);
 				List<Map<String, Object>> datalist = (List<Map<String, Object>>) m.get("data");
-				String cateid = categoryPo.getId();
+				String cateid = categoryPo.getSrcId();
 				String catename = categoryPo.getCategoryName();
 				catemap.put(cateid, catename);
 				for (Map<String, Object> map : datalist) {
@@ -39,7 +41,7 @@ public class QTCategoryCrawler {
 		} catch (Exception e) {e.printStackTrace();}
 		Map<String, Object> map = new HashMap<>();
 		map.put("chmap", chmap);
-		map.put("catamap",catemap);
+		map.put("catemap",catemap);
 		return map;
 	}
 }

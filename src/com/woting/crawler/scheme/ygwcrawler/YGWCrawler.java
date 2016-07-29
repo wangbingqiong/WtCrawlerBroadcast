@@ -23,6 +23,7 @@ public class YGWCrawler extends Thread {
 		list.add(m);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Map<String, Object> beginYGWCrawler(String publisher) {
 		long begintime = System.currentTimeMillis();
 		System.out.println(publisher+"行政地区抓取");

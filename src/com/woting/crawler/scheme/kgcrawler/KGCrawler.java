@@ -22,6 +22,7 @@ public class KGCrawler extends Thread {
 		list.add(m);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Map<String , Object> beginKGCrawler(String publisher) { 
 		System.out.println(publisher+"开始抓取");
 		long begintime = System.currentTimeMillis();
@@ -41,7 +42,7 @@ public class KGCrawler extends Thread {
 		for (ChannelPo ch : chlist) {
 			ch.setRegionName(regmap.get(ch.getRegionId())+"");
 			ch.setCategoryId(catemap.get(ch.getChId())+"");
-			ch.setCategoryName(catemap.get(ch.getCategoryId())+"");
+			ch.setCategoryName(catemap.get("KG"+ch.getCategoryId())+"");
 		}
 		System.out.println(publisher+"更新中间数据库");
 		new UpdateMySql().updateSqlInfo(null, chlist, null, publisher);

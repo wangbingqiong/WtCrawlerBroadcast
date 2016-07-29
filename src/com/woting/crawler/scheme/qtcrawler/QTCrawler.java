@@ -27,6 +27,7 @@ public class QTCrawler extends Thread {
 		list.add(m);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Map<String, Object> beginQTCrawler(String publisher) {
 		System.out.println(publisher+"抓取行政区划开始");
 		long begtime = System.currentTimeMillis();

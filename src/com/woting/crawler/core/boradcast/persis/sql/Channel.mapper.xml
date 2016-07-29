@@ -94,6 +94,11 @@
   <select id="getChListByPublisher" resultMap="BaseResultMap" parameterType="java.lang.String">
     select <include refid="Base_Column_List"/>from bc_Channel where publisher=#{publisher,jdbcType=VARCHAR}
   </select>
+  
+  <select id="getChList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>from bc_Channel
+  </select>
+  
   <!-- 删除数据 -->
   <delete id="deleteByPublisher" parameterType="java.lang.String">
     delete from bc_Channel where publisher=#{publisher,jdbcType=VARCHAR}

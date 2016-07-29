@@ -15,6 +15,7 @@ public class YGWCategoryCrawler {
 	
 	private CategoryService cateService;
 	
+	@SuppressWarnings("unchecked")
 	public Map<String, Object> getCategory2ChMap(String publisher) {
 		cateService = (CategoryService) SpringShell.getBean("categoryService");
 		List<CategoryPo> catelist = cateService.getCategoryList(publisher);

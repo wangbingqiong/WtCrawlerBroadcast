@@ -1,5 +1,6 @@
 package com.woting.crawler.scheme.etl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,14 +30,17 @@ public abstract class DataTransform {
 			bc.setBcImg(ch.getChImg());
 			bc.setBcURL(ch.getChURL());
 			bc.setDescn(ch.getDescn());
-			bc.setPubCount(0);
+			bc.setPubCount(1);
+			bc.setcTime(new Timestamp(System.currentTimeMillis()));
 			bclist.add(bc);
+			bclf.setId(SequenceUUID.getUUIDSubSegment(4));
 			bclf.setBcId(bcid);
 			bclf.setBcSrcType(2);
-			bclf.setBcSource("蜻蜓FM");
+			bclf.setBcSource(ch.getPublisher());
 			bclf.setFlowURI(ch.getFlowURI());
 			bclf.setIsMain(0);
 			bclf.setBcSrcChannelId(ch.getChId());
+			bclf.setcTime(new Timestamp(System.currentTimeMillis()));
 			bclflist.add(bclf);
 		}
 		map.put("broadcast", bclist);
@@ -55,7 +59,7 @@ public abstract class DataTransform {
 	public static BCLiveFlowPo getBclfByBcAndCh(BroadcastPo bc, ChannelPo ch) {
 		BCLiveFlowPo bclf = new BCLiveFlowPo();
 		bclf.setBcId(bc.getId());
-		bclf.setBcSource("蜻蜓FM");
+		bclf.setBcSource(ch.getPublisher());
 		bclf.setFlowURI(ch.getFlowURI());
 		bclf.setBcSrcChannelId(ch.getChId());
 		return bclf;
@@ -73,5 +77,20 @@ public abstract class DataTransform {
 			bcplist.add(bcp);
 		}
 		return bcplist;
+	}
+	
+	public static List<BCLiveFlowPo> getUpdateBCLiveFlowByCh(List<ChannelPo> chlist,Map<String, Object> bclfmap){
+		List<BCLiveFlowPo> updatebclflist = new ArrayList<BCLiveFlowPo>();
+		for (ChannelPo ch : chlist) {
+			if(bclfmap.containsKey(ch.getPublisher()+"::"+ch.getChId())){
+				BCLiveFlowPo bclf = new BCLiveFlowPo();
+				bclf.setBcSource(ch.getPublisher());
+				bclf.setFlowURI(ch.getFlowURI());
+				bclf.setBcSrcChannelId(ch.getChId());
+				bclf.setcTime(new Timestamp(System.currentTimeMillis()));
+				updatebclflist.add(bclf);
+			}
+		}
+		return updatebclflist;
 	}
 }

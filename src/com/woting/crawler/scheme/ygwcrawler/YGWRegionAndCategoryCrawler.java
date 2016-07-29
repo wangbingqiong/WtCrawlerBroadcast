@@ -16,6 +16,7 @@ import com.woting.crawler.core.boradcast.persis.po.RegionPo;
 
 public class YGWRegionAndCategoryCrawler {
 
+	@SuppressWarnings("unchecked")
 	public Map<String, Object> getYGWRegionAndCategory(String url){
 		Document doc = null;
 		Map<String, Object> map = new HashMap<String,Object>();

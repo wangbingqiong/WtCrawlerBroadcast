@@ -64,6 +64,10 @@
   </insert>
   
   <!-- 获得列表 -->
+  <select id="getBCLiveFolwList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from wt_BCLiveFlow
+  </select>
+  
   <select id="getBCLiveFolwByBcSource" resultMap="BaseResultMap" parameterType="java.lang.String">
     select <include refid="Base_Column_List"/> from wt_BCLiveFlow where bcSource=#{bcSource,jdbcType=VARCHAR}
   </select>
@@ -73,26 +77,11 @@
   </select>
   
   <insert id="insertList" parameterType="java.util.List">
-    insert into wt_BCLiveFlow(id,bcId,bcSrcType,bcSrcId,bcSource,flowURI,inMain,descn,bcSrcChannelId,cTime) values
+    insert into wt_BCLiveFlow(id,bcId,bcSrcType,bcSrcId,bcSource,flowURI,isMain,descn,bcSrcChannelId,cTime) values
     <foreach collection="list" item="list" index="index" separator=",">
-     (#{list.id},#{list.bcId},#{list.bcSrcType},#{list.bcSrcId},#{list.bcSource},#{list.flowURI},#{list.inMain},#{list.descn},#{list.bcSrcChannelId},#{list.cTime})
+     (#{list.id},#{list.bcId},#{list.bcSrcType},#{list.bcSrcId},#{list.bcSource},#{list.flowURI},#{list.isMain},#{list.descn},#{list.bcSrcChannelId},#{list.cTime})
     </foreach>
   </insert>
-  
-  
-  
-  <update id="updateList" parameterType="java.util.List">
-      <foreach collection="list" item="list" index="index" open="" close="" separator=";">  
-        update wt_BCLiveFlow   
-        <set>
-        flowURI=${list.flowURI},bcSrcChannelId=${list.bcSrcChannelId},cTime=${list.cTime} 
-        </set>
-        where bcId = ${list.bcId} and bcSource = ${list.bcSource}
-      </foreach>
-  </update>
-  
-  <delete id="deleteBybcSrcChannelId" parameterType="java.lang.String">
-	  delete from wt_BCLiveFlow where bcSrcChannelId=#{bcSrcChannelId,jdbcType=VARCHAR} and bcSource like '%央广网%'
-  </delete>
+
   
 </mapper>

@@ -16,6 +16,7 @@ import com.woting.crawler.core.boradcast.persis.po.ChannelPo;
 
 public class YGWBroadcastCrawler {
 
+	@SuppressWarnings("unchecked")
 	public List<ChannelPo> getYGWChannel(String srcId) {
 		Document doc = null;
 		List<ChannelPo> chlist = new ArrayList<ChannelPo>();

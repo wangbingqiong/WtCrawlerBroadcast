@@ -26,6 +26,10 @@ public class BroadcastService {
 		return bclist;
 	}
 	
+	public List<BroadcastPo> getBroadcastNotInResDict(String dictMid){
+		return bcDao.queryForList("getBroadcastNotInResDict", dictMid);
+	}
+	
 	public void insertBroadcastList(List<BroadcastPo> bclist) {
 		bcDao.insert("insertList", bclist);
 	}

@@ -161,5 +161,28 @@ public class DictService {
         }
     }
     
+    public List<DictMasterPo> getDictMById(String id){
+    	return dictMDao.queryForList("getInfoById", id);
+    }
     
+    public Map<String, Object> getDictDMapByMid(String mid){
+    	Map<String, Object> map = new HashMap<String,Object>();
+    	List<DictDetailPo> dictdlist = getDictDByDictMid(mid);
+    	for (DictDetailPo dictD : dictdlist) {
+			map.put(dictD.getDdName(), dictD.getId());
+		}
+    	return map;
+    }
+    
+    public void insertResDict(Map<String, Object> list){
+    	dictRefDao.insert("insertList", list);
+    }
+    
+    public List<DictDetailPo> getDictDByDictMid(String mid){
+		return dictDDao.queryForList("getInfoByMid", mid);
+    }
+    
+    public int deleteResDictNotInBroadcast(String dictMid){
+    	return dictRefDao.delete("deleteResDictNotInBroadcastByMid",dictMid);
+    }
 }

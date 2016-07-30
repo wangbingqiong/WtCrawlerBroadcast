@@ -41,6 +41,10 @@
     select <include refid="Base_Column_List"/> from wt_Broadcast
   </select>
   
+  <select id="getBroadcastNotInResDict" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List"/> from wt_Broadcast where id NOT IN (SELECT resId from wt_ResDict_Ref where dictMid=#{dictMid,jdbcType=VARCHAR})
+  </select>
+  
   <insert id="insertList" parameterType="java.util.List">
     insert into wt_Broadcast(id,bcTitle,bcPubType,bcPubId,bcPublisher,bcImg,bcURL,descn,pubCount,cTime) values
     <foreach collection="list" item="list" index="index" separator=",">

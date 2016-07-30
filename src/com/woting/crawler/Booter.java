@@ -1,8 +1,5 @@
 package com.woting.crawler;
 
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,21 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.spiritdata.framework.core.cache.CacheEle;
 import com.spiritdata.framework.core.cache.SystemCache;
-import com.spiritdata.framework.jsonconf.JsonConfig;
 import com.spiritdata.framework.util.JsonUtils;
-import com.woting.cm.core.broadcast.persis.po.BCLiveFlowPo;
-import com.woting.cm.core.broadcast.service.BcLiveFlowService;
 import com.woting.cm.core.dict.mem._CacheDictionary;
-import com.woting.cm.core.dict.model.DictModel;
 import com.woting.cm.core.dict.service.DictService;
-import com.woting.crawler.core.boradcast.persis.po.ChannelPo;
-import com.woting.crawler.core.boradcast.service.ChannelService;
 import com.woting.crawler.ext.SpringShell;
 import com.woting.crawler.scheme.control.SchemeControl;
-import com.woting.crawler.scheme.etl.CompareInfo;
-import com.woting.crawler.scheme.kgcrawler.KGCrawler;
-import com.woting.crawler.scheme.qtcrawler.QTCrawler;
-import com.woting.crawler.scheme.ygwcrawler.YGWCrawler;
 
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
@@ -90,11 +77,8 @@ public class Booter {
 //        logger.info("内容抓取，环境初始化结束，共用时[{}]毫秒", System.currentTimeMillis()-beginTime);
         
         //开始抓取 
-//        SchemeControl schemeControl = new SchemeControl();
-//        List<Map<String, Object>> resultlist = schemeControl.progress_1();
+        SchemeControl schemeControl = new SchemeControl();
+        List<Map<String, Object>> resultlist = schemeControl.progress_1();
 //        System.out.println(JsonUtils.objToJson(resultlist));
-        DictService dictService = (DictService) SpringShell.getBean("dictService");
-        _CacheDictionary _c = dictService.loadCache();
-        System.out.println(JsonUtils.objToJson(_c.getDictModelById("2")));
 	}
 }

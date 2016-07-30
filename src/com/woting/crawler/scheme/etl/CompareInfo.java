@@ -5,10 +5,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.woting.cm.core.broadcast.persis.po.BCLiveFlowPo;
 import com.woting.cm.core.broadcast.persis.po.BroadcastPo;
 import com.woting.cm.core.broadcast.service.BcLiveFlowService;
 import com.woting.cm.core.broadcast.service.BroadcastService;
+import com.woting.cm.core.dict.persis.po.DictMasterPo;
+import com.woting.cm.core.dict.persis.po.DictRefResPo;
+import com.woting.cm.core.dict.service.DictService;
 import com.woting.crawler.core.boradcast.persis.po.ChannelPo;
 import com.woting.crawler.core.boradcast.persis.po.ProgrammePo;
 import com.woting.crawler.ext.SpringShell;
@@ -65,5 +69,13 @@ public class CompareInfo {
 			}
 		}
 		return updatelist;
+	}
+	
+	public List<DictRefResPo> contrastResDictRegion(List<BroadcastPo> bclist){
+		DictService dictService = (DictService) SpringShell.getBean("dictService");
+		DictMasterPo dictm = dictService.getDictMById("2").get(0);
+		Map<String, Object> dictd = dictService.getDictDMapByMid("2");
+		List<DictRefResPo> reslist = DataTransform.getResDictByBcAndDictM(bclist, dictm, dictd);
+		return reslist;
 	}
 }

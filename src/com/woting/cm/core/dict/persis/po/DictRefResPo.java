@@ -68,13 +68,13 @@ public class DictRefResPo extends BaseObject {
     public void setTitle(String title) {
         this.title=title;
     }
-    public String getBCode() {
-        return BCode;
-    }
-    public void setBCode(String BCode) {
-        this.BCode=BCode;
-    }
-    public String getPathNames() {
+	public String getBCode() {
+		return BCode;
+	}
+	public void setBCode(String bCode) {
+		BCode = bCode;
+	}
+	public String getPathNames() {
         return pathNames;
     }
     public void setPathNames(String pathNames) {

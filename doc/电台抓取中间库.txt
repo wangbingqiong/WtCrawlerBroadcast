@@ -1,6 +1,6 @@
-/**001 QT电台地区信息[QT_REGION]*/
-DROP TABLE IF EXISTS qt_Region;
-CREATE TABLE qt_Region (
+/**001 QT电台地区信息[BC_REGION]*/
+DROP TABLE IF EXISTS bc_Region;
+CREATE TABLE bc_Region (
   id         varchar(32)      NOT NULL             COMMENT 'ID(UUID)',
   srcId      varchar(32)      NOT NULL             COMMENT '平台的地区Id',
   publisher  varchar(32)      NOT NULL             COMMENT '来源',
@@ -11,18 +11,19 @@ CREATE TABLE qt_Region (
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='001电台地区信息';
 
-/**002 QT电台信息[QT_CHANNEL]*/
-DROP TABLE IF EXISTS qt_Channel;
-CREATE TABLE qt_Channel (
+/**002 QT电台信息[BC_CHANNEL]*/
+DROP TABLE IF EXISTS bc_Channel;
+CREATE TABLE bc_Channel (
   id             varchar(32)      NOT NULL             COMMENT 'ID(UUID)',
   chId           varchar(32)      NOT NULL             COMMENT '平台里电台播放资源对应Id',
   chLiveId       varchar(32)                           COMMENT '平台里电台节目资源对应Id',
   chTitle        varchar(100)     NOT NULL             COMMENT '电台名称',
   publisher      varchar(32)      NOT NULL             COMMENT '来源',
+  frequency      varchar(20)                           COMMENT '电台频段',
   regionId       varchar(32)                           COMMENT '电台行政区划Id',
   regionName     varchar(20)                           COMMENT '电台行政区划名称',
-  catagoryId     varchar(32)                           COMMENT '电台内容分类Id',
-  catagoryName   varchar(10)                           COMMENT '电台内容分类名称',
+  categoryId     varchar(32)                           COMMENT '电台内容分类Id',
+  categoryName   varchar(10)                           COMMENT '电台内容分类名称',
   chImg          varchar(200)                          COMMENT '电台图标',
   chURL          varchar(200)                          COMMENT '电台网址',
   flowURI        varchar(200)     NOT NULL             COMMENT '直播流URL',
@@ -32,15 +33,16 @@ CREATE TABLE qt_Channel (
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='002电台信息';
 
-/**003 QT电台节目信息[QT_CHPROGRAMME]*/
-DROP TABLE IF EXISTS qt_CHPROGRAMMEl;
-CREATE TABLE qt_CHProgramme (
+/**003 QT电台节目信息[BC_PROGRAMME]*/
+DROP TABLE IF EXISTS bc_Programme;
+CREATE TABLE bc_Programme (
   id         varchar(32)      NOT NULL             COMMENT 'id',
   chId       varchar(32)      NOT NULL             COMMENT '平台里电台播放资源对应Id',
   chLiveId   varchar(32)                           COMMENT '平台里电台节目资源对应Id',
   title      varchar(100)     NOT NULL             COMMENT '节目名称',
   publisher  varchar(32)      NOT NULL             COMMENT '来源',
   weekDay    int(1) unsigned  NOT NULL             COMMENT '星期的第几天',
+  sort       int(2) unsigned  NOT NULL             COMMENT '节目排序',
   begintime  varchar(10)      NOT NULL             COMMENT '节目开始直播时间',
   endtime    varchar(10)      NOT NULL             COMMENT '节目结束直播时间',
   duration   varchar(10)                           COMMENT '节目播放时长',
@@ -49,9 +51,9 @@ CREATE TABLE qt_CHProgramme (
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='003电台节目信息';
 
-/**004 QT电台抓取地址[QT_CHURIPATH]*/
-DROP TABLE IF EXISTS qt_CHUriPath;
-CREATE TABLE qt_CHUriPath (
+/**004 QT电台抓取地址[BC_URIPATH]*/
+DROP TABLE IF EXISTS bc_UriPath;
+CREATE TABLE bc_UriPath (
   id         varchar(32)      NOT NULL             COMMENT 'ID(UUID)',
   uriType    varchar(32)      NOT NULL             COMMENT '抓取uri链接类型',
   uriPart1   varchar(100)     NOT NULL             COMMENT '链接拼接部位1',
@@ -62,15 +64,87 @@ CREATE TABLE qt_CHUriPath (
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='004电台抓取地址';
 
-/**005 QT电台内容分类信息[QT_CHURIPATH]*/
-DROP TABLE IF EXISTS qt_CHCatagory;
-CREATE TABLE qt_CHCatagory (
+/**005 QT电台内容分类信息[BC_Category]*/
+DROP TABLE IF EXISTS bc_Category;
+CREATE TABLE bc_Category (
   id            varchar(32)      NOT NULL             COMMENT 'ID(UUID)',
   srcId         varchar(32)      NOT NULL             COMMENT '平台Id',
   publisher     varchar(32)      NOT NULL             COMMENT '来源',
-  catagoryName  varchar(32)      NOT NULL             COMMENT '平台内容分类名称',
-  catagoryURL   varchar(200)     NOT NULL             COMMENT '平台内容分类链接',
+  categoryName  varchar(32)      NOT NULL             COMMENT '平台内容分类名称',
+  categoryURL   varchar(200)     NOT NULL             COMMENT '平台内容分类链接',
   cTime         timestamp        NOT NULL  DEFAULT CURRENT_TIMESTAMP  COMMENT '创建时间',
   PRIMARY KEY (id)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='005电台内容分类信息';
+
+
+酷狗电台地区信息
+INSERT INTO bc_Region(id,srcId,publisher,regionName,regionURL) VALUES
+('947f21d006a4','10','酷狗FM','甘肃','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/10'),
+('6888a26f0b0e','11','酷狗FM','广东','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/11'),
+('3864f10a5c0a','12','酷狗FM','广西','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/12'),
+('39c20257ff0c','13','酷狗FM','贵州','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/13'),
+('3bded6f7169b','14','酷狗FM','海南','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/14'),
+('4f14f8d551a5','15','酷狗FM','河北','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/15'),
+('572347b83f04','16','酷狗FM','河南','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/16'),
+('b118a1c665a4','17','酷狗FM','黑龙江','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/17'),
+('c1c8bfed4004','18','酷狗FM','湖北','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/18'),
+('9cc234b1fcc6','19','酷狗FM','湖南','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/19'),
+('be14db3d2e32','20','酷狗FM','吉林','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/20'),
+('948ed74ab699','21','酷狗FM','江苏','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/21'),
+('561ca3786c3c','22','酷狗FM','江西','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/22'),
+('efd2d55eee40','23','酷狗FM','辽宁','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/23'),
+('7951f9bee60a','24','酷狗FM','内蒙古','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/24'),
+('6a21b394c659','25','酷狗FM','宁夏','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/25'),
+('7a94b2a1f3db','26','酷狗FM','青海','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/26'),
+('177c174ab137','27','酷狗FM','山东','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/27'),
+('53882524823f','28','酷狗FM','山西','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/28'),
+('edaaba9bc675','29','酷狗FM','陕西','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/29'),
+('2f8fb1c6f1a3','3','酷狗FM','国家','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/3'),
+('1657f74b12fd','30','酷狗FM','上海','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/30'),
+('ebefd2118f4c','31','酷狗FM','四川','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/31'),
+('987759b39ec7','32','酷狗FM','天津','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/32'),
+('04a622887b43','33','酷狗FM','西藏','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/33'),
+('6610c2da9011','34','酷狗FM','新疆','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/34'),
+('965c3603f62c','35','酷狗FM','云南','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/35'),
+('993d93e97ce2','36','酷狗FM','浙江','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/36'),
+('371716ec1ec8','4','酷狗FM','香港','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/4'),
+('5aa3a80b666f','6','酷狗FM','安徽','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/6'),
+('5c56e0965239','7','酷狗FM','北京','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/7'),
+('89b1101a777b','8','酷狗FM','重庆','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/8'),
+('5312ef5952b9','9','酷狗FM','福建','http://radiolive.mobile.kugou.com/program_info_list/type/1/type_key/9')
+
+电台抓取内容分类信息
+INSERT INTO bc_Category(id,srcId,publisher,categoryName,categoryURL) VALUES
+('c2cd73a4a28c','1','央广网FM','新闻','http://bk2.radio.cn/mms4/videoPlay/pcGetChannels.jspa?area=-1&type=1'),
+('013771dab8e4','10','央广网FM','网络','http://bk2.radio.cn/mms4/videoPlay/pcGetChannels.jspa?area=-1&type=10'),
+('9342a8af00f2','1335','蜻蜓FM','头条','http://api2.qingting.fm/v6/media/categories/5/channels/order/0/attr/1335/curpage/1/pagesize/1000'),
+('1512ff9dcbda','1336','蜻蜓FM','音乐','http://api2.qingting.fm/v6/media/categories/5/channels/order/0/attr/1336/curpage/1/pagesize/1000'),
+('67a887ab2708','1337','蜻蜓FM','经济','http://api2.qingting.fm/v6/media/categories/5/channels/order/0/attr/1337/curpage/1/pagesize/1000'),
+('dbd6cdd18edc','1338','蜻蜓FM','交通','http://api2.qingting.fm/v6/media/categories/5/channels/order/0/attr/1338/curpage/1/pagesize/1000'),
+('7ee48c4ea8d4','1339','蜻蜓FM','都市','http://api2.qingting.fm/v6/media/categories/5/channels/order/0/attr/1339/curpage/1/pagesize/1000'),
+('7605aa8c941b','1340','蜻蜓FM','曲艺','http://api2.qingting.fm/v6/media/categories/5/channels/order/0/attr/1340/curpage/1/pagesize/1000'),
+('2ac8e335f428','1341','蜻蜓FM','体育','http://api2.qingting.fm/v6/media/categories/5/channels/order/0/attr/1341/curpage/1/pagesize/1000'),
+('fe93b8f1ee62','1342','蜻蜓FM','综合','http://api2.qingting.fm/v6/media/categories/5/channels/order/0/attr/1342/curpage/1/pagesize/1000'),
+('6a2149fca26f','1343','蜻蜓FM','生活','http://api2.qingting.fm/v6/media/categories/5/channels/order/0/attr/1343/curpage/1/pagesize/1000'),
+('5fd657cada29','1344','蜻蜓FM','文艺','http://api2.qingting.fm/v6/media/categories/5/channels/order/0/attr/1344/curpage/1/pagesize/1000'),
+('439b1d977922','1345','蜻蜓FM','旅游','http://api2.qingting.fm/v6/media/categories/5/channels/order/0/attr/1345/curpage/1/pagesize/1000'),
+('25dcad50803a','1347','蜻蜓FM','方言','http://api2.qingting.fm/v6/media/categories/5/channels/order/0/attr/1347/curpage/1/pagesize/1000'),
+('6df7bc44f43c','1520','蜻蜓FM','校园','http://api2.qingting.fm/v6/media/categories/5/channels/order/0/attr/1520/curpage/1/pagesize/1000'),
+('9362ef56a15f','1744','蜻蜓FM','外语','http://api2.qingting.fm/v6/media/categories/5/channels/order/0/attr/1774/curpage/1/pagesize/1000'),
+('97f552287cd5','2','央广网FM','财经','http://bk2.radio.cn/mms4/videoPlay/pcGetChannels.jspa?area=-1&type=2'),
+('83bbc9fdfacf','3','央广网FM','生活','http://bk2.radio.cn/mms4/videoPlay/pcGetChannels.jspa?area=-1&type=3'),
+('3087ec252d98','4','央广网FM','交通','http://bk2.radio.cn/mms4/videoPlay/pcGetChannels.jspa?area=-1&type=4'),
+('b7a729c09694','5','央广网FM','民族','http://bk2.radio.cn/mms4/videoPlay/pcGetChannels.jspa?area=-1&type=5'),
+('bd04487a65fc','7','央广网FM','综艺','http://bk2.radio.cn/mms4/videoPlay/pcGetChannels.jspa?area=-1&type=7'),
+('06c1180567f8','8','央广网FM','音乐','http://bk2.radio.cn/mms4/videoPlay/pcGetChannels.jspa?area=-1&type=8'),
+('95c592c13a44','9','央广网FM','故事','http://bk2.radio.cn/mms4/videoPlay/pcGetChannels.jspa?area=-1&type=9'),
+('c7f6f1990050','1','酷狗FM','新闻','http://radiolive.mobile.kugou.com/program_info_list/type/2/type_key/1'),
+('b0303dd980d0','10','酷狗FM','方言','http://radiolive.mobile.kugou.com/program_info_list/type/2/type_key/10'),
+('e9c712e3c0f0','2','酷狗FM','娱乐','http://radiolive.mobile.kugou.com/program_info_list/type/2/type_key/2'),
+('2afb0e4323d0','3','酷狗FM','体育','http://radiolive.mobile.kugou.com/program_info_list/type/2/type_key/3'),
+('5cdeaa30f880','4','酷狗FM','情感','http://radiolive.mobile.kugou.com/program_info_list/type/2/type_key/4'),
+('59b66cc5858e','6','酷狗FM','音乐','http://radiolive.mobile.kugou.com/program_info_list/type/2/type_key/6'),
+('0c30a6028457','8','酷狗FM','交通','http://radiolive.mobile.kugou.com/program_info_list/type/2/type_key/8'),
+('f1b3fcf31926','9','酷狗FM','生活','http://radiolive.mobile.kugou.com/program_info_list/type/2/type_key/9'),
+('l173rbfg1986','5','酷狗FM','财经','http://radiolive.mobile.kugou.com/program_info_list/type/2/type_key/5')

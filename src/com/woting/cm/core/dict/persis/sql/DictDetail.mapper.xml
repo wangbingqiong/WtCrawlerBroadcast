@@ -108,6 +108,9 @@
   <select id="getInfoById" resultMap="BaseResultMap" parameterType="java.lang.String">
     select <include refid="Base_Column_List"/>from plat_DictD where id=#{id,jdbcType=VARCHAR}
   </select>
+  <select id="getInfoByMid" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List"/>from plat_DictD where mId=#{mId,jdbcType=VARCHAR}
+  </select>
 
   <!-- 新增数据 -->
   <insert id="insert" parameterType="java.util.Map">
@@ -173,4 +176,5 @@
   <delete id="deleteByEntity" parameterType="java.util.Map">
     delete from plat_DictD <if test="_parameter!=null"><include refid="WhereClauseByEntiey"/></if>
   </delete>
+  
 </mapper>

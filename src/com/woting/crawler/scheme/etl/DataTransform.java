@@ -6,10 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.spiritdata.framework.util.JsonUtils;
 import com.spiritdata.framework.util.SequenceUUID;
 import com.woting.cm.core.broadcast.persis.po.BCLiveFlowPo;
 import com.woting.cm.core.broadcast.persis.po.BCProgrammePo;
 import com.woting.cm.core.broadcast.persis.po.BroadcastPo;
+import com.woting.cm.core.dict.persis.po.DictMasterPo;
+import com.woting.cm.core.dict.persis.po.DictRefResPo;
 import com.woting.crawler.core.boradcast.persis.po.ChannelPo;
 import com.woting.crawler.core.boradcast.persis.po.ProgrammePo;
 
@@ -92,5 +95,30 @@ public abstract class DataTransform {
 			}
 		}
 		return updatebclflist;
+	}
+	
+	public static List<DictRefResPo> getResDictByBcAndDictM(List<BroadcastPo> bclist, DictMasterPo dictm, Map<String, Object> dictd){
+		List<DictRefResPo> reslist = new ArrayList<DictRefResPo>();
+		System.out.println(JsonUtils.objToJson(dictd));
+		for (BroadcastPo bc : bclist) {
+			String dictdid = dictd.get(bc.getBcPublisher().replace("人民广播电台", ""))+"";
+			if(!dictdid.equals("null")){
+				DictRefResPo resdict = new DictRefResPo();
+			    resdict.setId(SequenceUUID.getPureUUID());
+			    resdict.setRefName("电台-"+dictm.getDmName());
+			    resdict.setResTableName("wt_Broadcast");
+			    resdict.setResId(bc.getId());
+			    resdict.setDictMid(dictm.getId());
+			    resdict.setDictMName(dictm.getDmName());
+			    resdict.setDictDid(dictdid);
+			    resdict.setTitle(bc.getBcPublisher().replace("人民广播电台", ""));
+			    resdict.setBCode(dictdid);
+			    resdict.setPathNames(bc.getBcPublisher().replace("人民广播电台", ""));
+			    resdict.setPathIds(dictdid);
+			    resdict.setCTime(new Timestamp(System.currentTimeMillis()));
+			    reslist.add(resdict);
+			}
+		}
+		return reslist;
 	}
 }

@@ -14,7 +14,7 @@ D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\crawler\scheme\qtcrawler\QTCat
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\cm\core\broadcast\service\BcProgrammeService.java
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\cm\core\dict\model\DictMaster.java
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\crawler\scheme\ygwcrawler\YGWCrawler.java
-D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\crawler\scheme\etl\compareInfo.java
+D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\crawler\scheme\etl\CompareInfo.java
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\cm\core\dict\mem\_CacheDictionary.java
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\crawler\CrawlerConstants.java
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\cm\core\dict\persis\po\DictDetailPo.java
@@ -39,6 +39,7 @@ D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\cm\core\dict\persis\po\DictMas
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\cm\core\dict\service\DictService.java
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\cm\core\broadcast\service\BroadcastService.java
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\crawler\core\boradcast\service\RegionService.java
+D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\crawler\scheme\control\SchemeControl.java
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\exceptionC\Wtcm0301CException.java
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\crawler\core\boradcast\persis\po\CrawlerUrlPo.java
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\crawler\ext\SpringShell.java
@@ -52,6 +53,7 @@ D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\crawler\core\boradcast\service
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\crawler\core\boradcast\persis\po\ProgrammePo.java
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\cm\core\perimeter\model\Organize.java
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\crawler\core\boradcast\persis\po\CategoryPo.java
+D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\crawler\core\scheme\persis\Scheme.java
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\crawler\scheme\kgcrawler\KGCategoryCrawler.java
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\crawler\scheme\qtcrawler\QTBroadcastCrawler.java
 D:\workIDE\work\WtCrawlerBroadcast\src\com\woting\crawler\core\boradcast\service\ProgrammeService.java

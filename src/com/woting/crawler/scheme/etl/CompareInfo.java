@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.spiritdata.framework.core.cache.SystemCache;
+import com.spiritdata.framework.jsonconf.JsonConfig;
+import com.spiritdata.framework.util.JsonUtils;
 import com.woting.cm.core.broadcast.persis.po.BCLiveFlowPo;
 import com.woting.cm.core.broadcast.persis.po.BroadcastPo;
 import com.woting.cm.core.broadcast.service.BcLiveFlowService;
@@ -13,8 +16,10 @@ import com.woting.cm.core.broadcast.service.BroadcastService;
 import com.woting.cm.core.dict.persis.po.DictMasterPo;
 import com.woting.cm.core.dict.persis.po.DictRefResPo;
 import com.woting.cm.core.dict.service.DictService;
+import com.woting.crawler.CrawlerConstants;
 import com.woting.crawler.core.boradcast.persis.po.ChannelPo;
 import com.woting.crawler.core.boradcast.persis.po.ProgrammePo;
+import com.woting.crawler.core.boradcast.service.ChannelService;
 import com.woting.crawler.ext.SpringShell;
 import com.woting.crawler.scheme.tools.CrawlerInfo;
 
@@ -71,11 +76,36 @@ public class CompareInfo {
 		return updatelist;
 	}
 	
-	public List<DictRefResPo> contrastResDictRegion(List<BroadcastPo> bclist){
+	public List<DictRefResPo> contrastResDictRegion(List<BroadcastPo> bclist, String mid){
 		DictService dictService = (DictService) SpringShell.getBean("dictService");
-		DictMasterPo dictm = dictService.getDictMById("2").get(0);
-		Map<String, Object> dictd = dictService.getDictDMapByMid("2");
-		List<DictRefResPo> reslist = DataTransform.getResDictByBcAndDictM(bclist, dictm, dictd);
+		DictMasterPo dictm = dictService.getDictMById(mid).get(0);
+		Map<String, Object> dictd = dictService.getDictDMapByMid(mid);
+		List<DictRefResPo> reslist = DataTransform.getResDictRegionByBcAndDictM(bclist, dictm, dictd);
+		return reslist;
+	}
+	
+	public List<DictRefResPo> contrastResDictCategory(List<BCLiveFlowPo> bclflist, String mid){
+		DictService dictService = (DictService) SpringShell.getBean("dictService");
+		ChannelService chService = (ChannelService) SpringShell.getBean("channelService");
+		DictMasterPo dictm = dictService.getDictMById("1").get(0);
+		Map<String, Object> dictd = dictService.getDictDMapByMid("1");
+		Map<String, Object> chid_cateid = chService.getChIdAndCateidMap();
+		JsonConfig jsonConfig = null;
+		try {
+			jsonConfig = new JsonConfig(SystemCache.getCache(CrawlerConstants.APP_PATH).getContent()+"conf/DictRelevance.txt");
+		} catch (Exception e) {e.printStackTrace();}
+		List<DictRefResPo> reslist = DataTransform.getResDictCategory(bclflist, dictm, dictd, chid_cateid, jsonConfig);
+		List<DictRefResPo> dictlist = new ArrayList<DictRefResPo>();
+		String ids = "";
+		for (DictRefResPo dictRefResPo : reslist) {
+			if (ids.contains(dictRefResPo.getResId())) {
+				dictlist.add(dictRefResPo);
+			}else {
+				ids += dictRefResPo.getResId();
+			}
+		}
+		reslist.removeAll(dictlist);
+		System.out.println(JsonUtils.objToJson(reslist));
 		return reslist;
 	}
 }

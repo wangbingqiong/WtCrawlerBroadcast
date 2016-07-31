@@ -1,5 +1,8 @@
 package com.woting.crawler.core.boradcast.service;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -30,6 +33,15 @@ public class ChannelService {
 	public List<ChannelPo> getChannelList(String publisher){
 		List<ChannelPo> chlist = chDao.queryForList("getChListByPublisher", publisher);
 		return chlist;
+	}
+	
+	public Map<String, Object> getChIdAndCateidMap(){
+		List<ChannelPo> chlist = getChannelList();
+		Map<String, Object> m = new HashMap<String,Object>();
+		for (ChannelPo ch : chlist) {
+			m.put(ch.getPublisher()+ch.getChId(), ch.getCategoryId());
+		}
+		return m;
 	}
 	
 	public void deleteChannel(String publisher) {

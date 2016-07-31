@@ -64,12 +64,16 @@
   </insert>
   
   <!-- 获得列表 -->
-  <select id="getBCLiveFolwList" resultMap="BaseResultMap">
+  <select id="getBCLiveFlowList" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/> from wt_BCLiveFlow
   </select>
   
   <select id="getBCLiveFolwByBcSource" resultMap="BaseResultMap" parameterType="java.lang.String">
     select <include refid="Base_Column_List"/> from wt_BCLiveFlow where bcSource=#{bcSource,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getBCLiveFlowNotInResDict" resultMap="BaseResultMap" parameterType="java.lang.String">
+     select <include refid="Base_Column_List"/> from wt_BCLiveFlow where bcId NOT IN (SELECT resId from wt_ResDict_Ref where dictMid=#{dictMid,jdbcType=VARCHAR}) and isMain = 1
   </select>
   
   <select id="getBCLiveFolwBySrcChannelId" resultMap="BaseResultMap" parameterType="java.lang.String">

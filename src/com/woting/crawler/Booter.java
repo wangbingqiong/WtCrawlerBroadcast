@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import com.spiritdata.framework.core.cache.CacheEle;
 import com.spiritdata.framework.core.cache.SystemCache;
 import com.spiritdata.framework.util.JsonUtils;
-import com.woting.cm.core.dict.mem._CacheDictionary;
-import com.woting.cm.core.dict.service.DictService;
 import com.woting.crawler.ext.SpringShell;
 import com.woting.crawler.scheme.control.SchemeControl;
 
@@ -68,7 +66,7 @@ public class Booter {
         long _begin=System.currentTimeMillis();
         SpringShell.init();
         logger.info("加载Spring配置，用时[{}]毫秒", System.currentTimeMillis()-_begin);
-
+        
 //        //内容资源库环境加载
 //        _begin=System.currentTimeMillis();
 //        LoadCacheService loadCacheService=(LoadCacheService)SpringShell.getBean("loadCacheService");
@@ -79,6 +77,6 @@ public class Booter {
         //开始抓取 
         SchemeControl schemeControl = new SchemeControl();
         List<Map<String, Object>> resultlist = schemeControl.progress_1();
-//        System.out.println(JsonUtils.objToJson(resultlist));
+        System.out.println(JsonUtils.objToJson(resultlist));
 	}
 }

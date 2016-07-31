@@ -23,7 +23,7 @@ public class BcLiveFlowService {
 	public Map<String, Object> getBCLiveFlowMap(){
 		Map<String, Object> m1 = new HashMap<String,Object>();
 		Map<String, Object> m2 = new HashMap<String,Object>();
-		List<BCLiveFlowPo> bclflist = bclfDao.queryForList("getBCLiveFolwList");
+		List<BCLiveFlowPo> bclflist = bclfDao.queryForList("getBCLiveFlowList");
 		for (BCLiveFlowPo bcLiveFlowPo : bclflist) {
 			m1.put(bcLiveFlowPo.getBcSource()+"::"+bcLiveFlowPo.getBcSrcChannelId(), bcLiveFlowPo.getFlowURI());
 			m2.put(bcLiveFlowPo.getBcSource()+"::"+bcLiveFlowPo.getBcSrcChannelId(), bcLiveFlowPo.getBcId());
@@ -67,5 +67,9 @@ public class BcLiveFlowService {
 	
 	public void deleteBCLiveFlowBySrcChannelId(String bcSrcChannelId) {
 		bclfDao.delete("deleteBybcSrcChannelId", bcSrcChannelId);
+	}
+
+	public List<BCLiveFlowPo> getBroadcastNotInResDictIsMain(String mid) {
+		return bclfDao.queryForList("getBCLiveFlowNotInResDict", mid);
 	}
 }

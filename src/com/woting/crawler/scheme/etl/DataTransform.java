@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.spiritdata.framework.jsonconf.JsonConfig;
 import com.spiritdata.framework.util.JsonUtils;
 import com.spiritdata.framework.util.SequenceUUID;
 import com.woting.cm.core.broadcast.persis.po.BCLiveFlowPo;
@@ -97,9 +98,8 @@ public abstract class DataTransform {
 		return updatebclflist;
 	}
 	
-	public static List<DictRefResPo> getResDictByBcAndDictM(List<BroadcastPo> bclist, DictMasterPo dictm, Map<String, Object> dictd){
+	public static List<DictRefResPo> getResDictRegionByBcAndDictM(List<BroadcastPo> bclist, DictMasterPo dictm, Map<String, Object> dictd){
 		List<DictRefResPo> reslist = new ArrayList<DictRefResPo>();
-		System.out.println(JsonUtils.objToJson(dictd));
 		for (BroadcastPo bc : bclist) {
 			String dictdid = dictd.get(bc.getBcPublisher().replace("人民广播电台", ""))+"";
 			if(!dictdid.equals("null")){
@@ -114,6 +114,41 @@ public abstract class DataTransform {
 			    resdict.setTitle(bc.getBcPublisher().replace("人民广播电台", ""));
 			    resdict.setBCode(dictdid);
 			    resdict.setPathNames(bc.getBcPublisher().replace("人民广播电台", ""));
+			    resdict.setPathIds(dictdid);
+			    resdict.setCTime(new Timestamp(System.currentTimeMillis()));
+			    reslist.add(resdict);
+			}
+		}
+		return reslist;
+	}
+	
+	public static List<DictRefResPo> getResDictCategory(List<BCLiveFlowPo> bclflist, DictMasterPo dictm, Map<String, Object> dictd, Map<String, Object> chid_cateid, JsonConfig jsonConfig){
+		List<DictRefResPo> reslist = new ArrayList<DictRefResPo>();
+		for (BCLiveFlowPo bclf : bclflist) {
+			String jsonkey_1 = bclf.getBcSource()+chid_cateid.get(bclf.getBcSource()+bclf.getBcSrcChannelId())+""; //publish+cateid
+			String jsonkey_2 = ""; //dicdid
+			String dicdname = "";
+			String dictdid = "";
+			try {
+				jsonkey_2 = jsonConfig.getString(jsonkey_1);
+				dictdid = jsonConfig.getString(jsonkey_1);
+			} catch (Exception e) {
+				e.printStackTrace();
+				continue;
+			}
+			dicdname = dictd.get(jsonkey_2)+"";
+			if(!dictdid.equals("null")){
+				DictRefResPo resdict = new DictRefResPo();
+			    resdict.setId(SequenceUUID.getPureUUID());
+			    resdict.setRefName("电台-"+dictm.getDmName());
+			    resdict.setResTableName("wt_Broadcast");
+			    resdict.setResId(bclf.getBcId());
+			    resdict.setDictMid(dictm.getId());
+			    resdict.setDictMName(dictm.getDmName());
+			    resdict.setDictDid(dictdid);
+			    resdict.setTitle(dicdname);
+			    resdict.setBCode(dictdid);
+			    resdict.setPathNames(dicdname);
 			    resdict.setPathIds(dictdid);
 			    resdict.setCTime(new Timestamp(System.currentTimeMillis()));
 			    reslist.add(resdict);

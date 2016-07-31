@@ -170,12 +170,13 @@ public class DictService {
     	List<DictDetailPo> dictdlist = getDictDByDictMid(mid);
     	for (DictDetailPo dictD : dictdlist) {
 			map.put(dictD.getDdName(), dictD.getId());
+			map.put(dictD.getId(), dictD.getDdName());
 		}
     	return map;
     }
     
-    public void insertResDict(Map<String, Object> list){
-    	dictRefDao.insert("insertList", list);
+    public int insertResDict(Map<String, Object> list){
+    	return dictRefDao.insert("insertList", list);
     }
     
     public List<DictDetailPo> getDictDByDictMid(String mid){

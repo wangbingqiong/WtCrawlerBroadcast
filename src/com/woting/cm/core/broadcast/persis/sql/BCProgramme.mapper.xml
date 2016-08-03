@@ -45,7 +45,12 @@
 		</foreach>
 	</insert>
 
+    <!--根据id删除节目表数据 -->
 	<delete id="deleteById" parameterType="java.lang.String">
 		delete from wt_BCProgramme where id=#{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<delete id="delete" >
+		delete from wt_BCProgramme
 	</delete>
 </mapper>

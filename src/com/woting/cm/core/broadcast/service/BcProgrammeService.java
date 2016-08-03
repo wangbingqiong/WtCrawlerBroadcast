@@ -1,14 +1,13 @@
 package com.woting.cm.core.broadcast.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
-
 import com.spiritdata.framework.core.dao.mybatis.MybatisDAO;
 import com.woting.cm.core.broadcast.persis.po.BCProgrammePo;
 
@@ -20,15 +19,30 @@ public class BcProgrammeService {
 	
 	@PostConstruct
     public void initParam() {
-        bcProDao.setNamespace("A_PROGRAMME");
+        bcProDao.setNamespace("A_BCPROGRAMME");
     }
 	
 	public void insertBCProgrammeList(List<BCProgrammePo> bcProlist) {
-		bcProDao.insert("insertList", bcProlist);
+		int num=0;
+		List<BCProgrammePo> pplist = new ArrayList<BCProgrammePo>();
+		for (int i = 0; i < bcProlist.size(); i++) {
+			pplist.add(bcProlist.get(i));
+			num++;
+			if(num==1000) {
+				bcProDao.insert("insertList", pplist);
+				pplist.clear();
+				num=0;
+			}
+		}
+		bcProDao.insert("insertlist", pplist);
 	}
 	
 	public void deleteById(String id) {
 		bcProDao.delete("deleteById", id);
+	}
+	
+	public void delete() {
+		bcProDao.delete("delete");
 	}
 	
 	public Map<String, Object> getBCProgrammeStr(){

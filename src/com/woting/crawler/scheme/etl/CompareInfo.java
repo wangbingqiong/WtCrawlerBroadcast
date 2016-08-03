@@ -8,7 +8,6 @@ import java.util.Map;
 
 import com.spiritdata.framework.core.cache.SystemCache;
 import com.spiritdata.framework.jsonconf.JsonConfig;
-import com.spiritdata.framework.util.JsonUtils;
 import com.woting.cm.core.broadcast.persis.po.BCLiveFlowPo;
 import com.woting.cm.core.broadcast.persis.po.BroadcastPo;
 import com.woting.cm.core.broadcast.service.BcLiveFlowService;
@@ -105,7 +104,6 @@ public class CompareInfo {
 			}
 		}
 		reslist.removeAll(dictlist);
-		System.out.println(JsonUtils.objToJson(reslist));
 		return reslist;
 	}
 }

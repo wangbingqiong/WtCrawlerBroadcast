@@ -17,6 +17,7 @@ import com.woting.crawler.core.boradcast.persis.po.ChannelPo;
 
 public class QTBroadcastCrawler {
 
+	@SuppressWarnings("unchecked")
 	public List<ChannelPo> getQTChannel(String url){
 		Document doc = null;
 		List<ChannelPo> chlist = new ArrayList<ChannelPo>();
@@ -43,7 +44,7 @@ public class QTBroadcastCrawler {
 					ch.setChImg(chimg);
 					ch.setRegionId(regionid);
 					ch.setChURL("http://qingting.fm/channels/"+chLiveId);
-					ch.setFlowURI("http://hls.qingting.fm/live/"+chid+".m3u8");
+					ch.setFlowURI("http://hls.qingting.fm/live/"+chid+".m3u8?bitrate=64&format=mpegts");
 					ch.setDescn(m.get("desc")+"");
 					ch.setPublisher("蜻蜓FM");
 					ch.setcTime(new Timestamp(System.currentTimeMillis()));

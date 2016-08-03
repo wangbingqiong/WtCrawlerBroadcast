@@ -74,8 +74,8 @@
   </insert>
   
   <!-- 获得节目数据 -->
-  <select id="getProListByPublisher" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select <include refid="Base_Column_List"/>from bc_Programme where publisher=#{publisher,jdbcType=VARCHAR}
+  <select id="getProListByPublisher" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select <include refid="Base_Column_List"/>from bc_Programme where publisher=#{publisher,jdbcType=VARCHAR} limit #{beginnum,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
   </select>
   
   <!-- 删除数据 -->

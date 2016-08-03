@@ -52,10 +52,10 @@
 
   <!--[BEGIN]内容管理主数据库-->
   <bean id="dataSource_CM" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" lazy-init="false">
-    <property name="driverClassName" value="${jdbc.mysql.driverClassName}"/>
-    <property name="url" value="${jdbc.mysql.url}"/>
-    <property name="username" value="${jdbc.mysql.username}"/>
-    <property name="password" value="${jdbc.mysql.password}"/>
+    <property name="driverClassName" value="${wtMain.mysql.driverClassName}"/>
+    <property name="url" value="${wtMain.mysql.url}"/>
+    <property name="username" value="${wtMain.mysql.username}"/>
+    <property name="password" value="${wtMain.mysql.password}"/>
     <property name="initialSize" value="30"/>
     <property name="maxActive" value="50"/>
     <property name="maxWait" value="60000"/>

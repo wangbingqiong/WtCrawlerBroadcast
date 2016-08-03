@@ -8,7 +8,7 @@
     <typeAlias alias="dictDetail"    type="com.woting.cm.core.dict.persis.po.DictDetailPo"/>
     <typeAlias alias="dictRefRes"    type="com.woting.cm.core.dict.persis.po.DictRefResPo"/>
     <typeAlias alias="broadcast"     type="com.woting.cm.core.broadcast.persis.po.BroadcastPo"/>
-    <typeAlias alias="bcprogramme"     type="com.woting.cm.core.broadcast.persis.po.BCProgrammePo"/>
+    <typeAlias alias="bcprogramme"   type="com.woting.cm.core.broadcast.persis.po.BCProgrammePo"/>
     <typeAlias alias="bcliveflow"    type="com.woting.cm.core.broadcast.persis.po.BCLiveFlowPo"/>
     <typeAlias alias="trackLog"      type="com.woting.cm.core.tracklog.persis.po.TrackLogPo"/>
   </typeAliases>

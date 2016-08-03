@@ -66,7 +66,8 @@ public class DictRefRes implements Serializable, ModelSwapPo {
         CTime=cTime;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public DictRefResPo convert2Po() {
         DictRefResPo ret=new DictRefResPo();
 

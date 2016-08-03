@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.woting.cm.core.broadcast.persis.po.BCLiveFlowPo;
-import com.woting.cm.core.broadcast.persis.po.BroadcastPo;
 import com.woting.crawler.core.boradcast.persis.po.ChannelPo;
 import com.woting.crawler.core.boradcast.persis.po.ProgrammePo;
 import com.woting.crawler.core.boradcast.persis.po.RegionPo;

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.spiritdata.framework.jsonconf.JsonConfig;
-import com.spiritdata.framework.util.JsonUtils;
 import com.spiritdata.framework.util.SequenceUUID;
 import com.woting.cm.core.broadcast.persis.po.BCLiveFlowPo;
 import com.woting.cm.core.broadcast.persis.po.BCProgrammePo;
@@ -69,15 +68,18 @@ public abstract class DataTransform {
 		return bclf;
 	}
 
-	public static List<BCProgrammePo> getBcpByBclfAndFes(Map<String, Object> bclfmap, List<ProgrammePo> feslist) {
+	public static List<BCProgrammePo> getBcpByBclfAndPro(Map<String, Object> bclfmap, List<ProgrammePo> prolist) {
 		List<BCProgrammePo> bcplist = new ArrayList<BCProgrammePo>();
-		for (ProgrammePo fs : feslist) {
+		for (ProgrammePo pro : prolist) {
 			BCProgrammePo bcp = new BCProgrammePo();
-			bcp.setBcId(bclfmap.get(fs.getChId()) + "");
-			bcp.setTitle(fs.getTitle());
-			bcp.setWeekDay(fs.getWeekDay());
-			bcp.setBeginTime(fs.getBegintime());
-			bcp.setEndTime(fs.getEndtime());
+			bcp.setId(SequenceUUID.getUUIDSubSegment(4));
+			bcp.setBcId(bclfmap.get(pro.getChId()) + "");
+			bcp.setTitle(pro.getTitle());
+			bcp.setWeekDay(pro.getWeekDay());
+			bcp.setSort(pro.getSort());
+			bcp.setBeginTime(pro.getBegintime());
+			bcp.setEndTime(pro.getEndtime());
+			bcp.setcTime(new Timestamp(System.currentTimeMillis()));
 			bcplist.add(bcp);
 		}
 		return bcplist;

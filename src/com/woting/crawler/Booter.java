@@ -67,16 +67,9 @@ public class Booter {
         SpringShell.init();
         logger.info("加载Spring配置，用时[{}]毫秒", System.currentTimeMillis()-_begin);
         
-//        //内容资源库环境加载
-//        _begin=System.currentTimeMillis();
-//        LoadCacheService loadCacheService=(LoadCacheService)SpringShell.getBean("loadCacheService");
-//        loadCacheService.loadContent();
-//        logger.info("加载内容资源库数据，用时[{}]毫秒", System.currentTimeMillis()-_begin);
-//        logger.info("内容抓取，环境初始化结束，共用时[{}]毫秒", System.currentTimeMillis()-beginTime);
-        
         //开始抓取 
         SchemeControl schemeControl = new SchemeControl();
         List<Map<String, Object>> resultlist = schemeControl.progress_1();
-        System.out.println(JsonUtils.objToJson(resultlist));
+        System.out.println(JsonUtils.objToJson(resultlist)); //抓取返回结果
 	}
 }

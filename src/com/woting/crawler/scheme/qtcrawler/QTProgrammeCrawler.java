@@ -16,6 +16,7 @@ public class QTProgrammeCrawler {
 	
 	List<ProgrammePo> fslist = new ArrayList<ProgrammePo>();
 	
+	@SuppressWarnings("unchecked")
 	public List<ProgrammePo> begionQTProgrammeCralwer(String chLiveId){
 		Document doc = null;
 //		int weekday = GetData.getWeekDayNum();

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.spiritdata.framework.util.JsonUtils;
 import com.woting.cm.core.broadcast.persis.po.BCLiveFlowPo;
 import com.woting.cm.core.broadcast.persis.po.BCProgrammePo;
 import com.woting.cm.core.broadcast.persis.po.BroadcastPo;
@@ -41,7 +40,7 @@ public class SchemeControl {
 		Map<String, Object> map = new HashMap<String,Object>();
 		
 		//开始抓取，抓取方式1 
-		resultlist = crawlerProgress_1();
+//		resultlist = crawlerProgress_1();
 		System.out.println("开始从中间库到资源库转换  方式1");
 		//开始从中间库到资源库转换  方式1
 		bclfService = (BcLiveFlowService) SpringShell.getBean("bcLiveFlowService");
@@ -52,7 +51,7 @@ public class SchemeControl {
         CompareInfo compareInfo = new CompareInfo();
         resultlist.add(compareInfo.contrastBCLiveFlowBySrcChannelId(chlist, m1));
         System.out.println("插入资源关系库电台行政区划数据");
-       //插入资源关系库电台行政区划数据
+        //插入资源关系库电台行政区划数据
         dictService = (DictService) SpringShell.getBean("dictService");
 		int num = 0;
 		dictService.deleteResDictNotInBroadcast("2");
@@ -94,7 +93,6 @@ public class SchemeControl {
 		long endtime = System.currentTimeMillis();
 		map.put("AllDuration", endtime-begiontime);
 		resultlist.add(map);
-		
 		return resultlist;
 	}
 	

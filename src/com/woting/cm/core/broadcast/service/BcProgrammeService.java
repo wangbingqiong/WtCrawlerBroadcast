@@ -34,7 +34,7 @@ public class BcProgrammeService {
 				num=0;
 			}
 		}
-		bcProDao.insert("insertlist", pplist);
+		bcProDao.insert("insertList", pplist);
 	}
 	
 	public void deleteById(String id) {

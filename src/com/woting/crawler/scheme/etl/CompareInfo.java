@@ -27,6 +27,7 @@ public class CompareInfo {
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> contrastBCLiveFlowBySrcChannelId(List<ChannelPo> chlist, Map<String, Object> chid_flowuri){
 		long begintime = System.currentTimeMillis();
+		BcLiveFlowService bclfService = (BcLiveFlowService) SpringShell.getBean("bcLiveFlowService");
 		List<BCLiveFlowPo> updatebclflist = new ArrayList<BCLiveFlowPo>();
 		List<ChannelPo> newchlist = new ArrayList<ChannelPo>();
 		for (ChannelPo ch : chlist) {
@@ -44,12 +45,14 @@ public class CompareInfo {
 				newchlist.add(ch);
 			}
 		}
+		if(updatebclflist!=null&&updatebclflist.size()>0)
+			bclfService.updateBCLiveFlowList(updatebclflist);
+		
 		if(newchlist.size()>0){
 			Map<String, Object> m = DataTransform.getBcByCh(newchlist);
 		    List<BroadcastPo> bclist = (List<BroadcastPo>) m.get("broadcast");
 		    List<BCLiveFlowPo> bclflist = (List<BCLiveFlowPo>) m.get("bcliveflow");
 		    BroadcastService bcService = (BroadcastService) SpringShell.getBean("broadcastService");
-		    BcLiveFlowService bclfService = (BcLiveFlowService) SpringShell.getBean("bcLiveFlowService");
 		    bcService.insertBroadcastList(bclist);
 		    bclfService.insertBCLiveFlowList(bclflist);
 		}

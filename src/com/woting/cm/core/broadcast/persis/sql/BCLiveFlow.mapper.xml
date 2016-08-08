@@ -86,6 +86,15 @@
      (#{list.id},#{list.bcId},#{list.bcSrcType},#{list.bcSrcId},#{list.bcSource},#{list.flowURI},#{list.isMain},#{list.descn},#{list.bcSrcChannelId},#{list.cTime})
     </foreach>
   </insert>
-
+  
+  <update id="updateList" parameterType="map">
+  update wt_BCLiveFlow
+      <foreach collection="list" item="list" index="index" open="" close="" separator=";">
+        <set>
+        flowURI=#{list.flowURI},cTime=#{list.cTime}
+        </set>
+        where bcSource=#{list.bcSource} and bcSrcChannelId=#{list.bcSrcChannelId}
+      </foreach>
+  </update>
   
 </mapper>

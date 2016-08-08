@@ -1,5 +1,10 @@
 package com.woting.cm.core.broadcast.service;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.spiritdata.framework.core.dao.mybatis.MybatisDAO;
+import com.spiritdata.framework.util.JsonUtils;
 import com.woting.cm.core.broadcast.persis.po.BCLiveFlowPo;
 
 @Service
@@ -62,7 +68,31 @@ public class BcLiveFlowService {
 	}
 	
 	public void updateBCLiveFlowList(List<BCLiveFlowPo> bclflist) {
-		bclfDao.update("updateList", bclflist);
+		String url = "jdbc:mysql://123.56.254.75/woting";
+		String name = "com.mysql.jdbc.Driver";
+		String user = "root";
+		String password = "mysql";
+		Connection conn = null;
+		try {
+			Class.forName(name);// 指定连接类型
+			conn = DriverManager.getConnection(url, user, password);
+			conn.setAutoCommit(false);
+			String sql = "update wt_BCLiveFlow set flowURI=?,cTime=? where bcSource=? and bcSrcChannelId=?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			for (BCLiveFlowPo bcLiveFlowPo : bclflist) {
+				ps.setString(1,bcLiveFlowPo.getFlowURI());
+				ps.setTimestamp(2, bcLiveFlowPo.getcTime());
+				ps.setString(3, bcLiveFlowPo.getBcSource());
+				ps.setString(4, bcLiveFlowPo.getBcSrcChannelId());
+				ps.addBatch();
+			}
+			ps.executeBatch();
+			conn.commit();
+		} catch (Exception e) {e.printStackTrace();}
+//		System.out.println(JsonUtils.objToJson(bclflist));
+//		Map<String, Object> m = new HashMap<String,Object>();
+//		m.put("list", bclflist);
+//		bclfDao.update("updateList", m);
 	}
 	
 	public void deleteBCLiveFlowBySrcChannelId(String bcSrcChannelId) {

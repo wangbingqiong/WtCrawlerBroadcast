@@ -2,7 +2,6 @@ package com.woting.crawler;
 
 import java.util.List;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.spiritdata.framework.core.cache.CacheEle;
@@ -10,7 +9,6 @@ import com.spiritdata.framework.core.cache.SystemCache;
 import com.spiritdata.framework.util.JsonUtils;
 import com.woting.crawler.ext.SpringShell;
 import com.woting.crawler.scheme.control.SchemeControl;
-
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
@@ -21,7 +19,7 @@ public class Booter {
 		long beginTime=System.currentTimeMillis();
         //获取运行路径
         String rootPath=Booter.class.getResource("").getPath();
-        if (rootPath.indexOf("!")!=-1) {//jar包
+        if (rootPath.indexOf("!")!=-1) {
             rootPath=rootPath.substring(0, rootPath.indexOf("!"));
             String[] _s=rootPath.split("/");
             if (_s.length>1) {
@@ -31,7 +29,7 @@ public class Booter {
                     if (_s[i].length()>0) rootPath+=_s[i]+"/";
                 }
             }
-        } else {//class
+        } else {
             rootPath=rootPath.substring(0, rootPath.length()-"com.woting.crawler".length()-1);
             String[] _s=rootPath.split("/");
             if (_s.length>1) {
